@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
 import HelloWorldText from './HelloWorld';
+import StockPantry from "./app/stockPantry";
 
 export default class App extends Component {
     constructor(){
@@ -15,6 +16,7 @@ export default class App extends Component {
             <React.Fragment>
             <BrowserRouter>
             <HelloWorldText name="Merle" />
+            <Route path="/stock-pantry" component={StockPantry} />
             </BrowserRouter>
             </React.Fragment>);
     }

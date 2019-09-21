@@ -43,7 +43,22 @@ require("./routes/logregroutes");
 
 
 // Route for not logged in users
-app.get("/welcome", (req, res) => {
+const requireLogin = (req, res, next)=> {
+    if (!req.session.user) {
+        res.redirect("/welcome");
+    } else {
+        next();
+    }
+};
+
+const requireNoLogin = (req, res, next) =>{
+    if (req.session.user) {
+        res.redirect("/");
+    } else {
+        next();
+    }
+};
+app.get("/welcome",requireNoLogin, (req, res) => {
     res.sendFile(__dirname + "/build/index.html");
 });
 
@@ -52,12 +67,14 @@ app.get("/logout", (req, res) => {
     res.redirect("/welcome");
 });
 
+
+
 // serves all routes not specifically listed above this one
 // app.get("*", requireLogin, function(req, res) {
 //     res.sendFile(__dirname + "/index.html");
 // });
 
-app.get("*", (req, res) => {
+app.get("*",requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, "/build/index.html"));
 });
 
