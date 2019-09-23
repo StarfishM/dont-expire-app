@@ -18,6 +18,7 @@ export default function SearchItems() {
   const MainContent = styled.div`
     grid-area: "main";
     background: lightyellow;
+    width: 100vw;
   `;
 
   useEffect(() => {

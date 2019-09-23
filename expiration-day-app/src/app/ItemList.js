@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { addToPantry, addToShoppingList } from "../actions";
+import { deleteFromItems, getUserItems } from "../actions";
 // import axios from "../axios";
 import styled from "styled-components";
 
 export default function ItemList({ img_url, disp_function, onShoppingList }) {
   const [listItemsShow, setListItemsShow] = useState();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const getListItems = () => {
     if (!listItemsShow) {
       setListItemsShow(true);
-      // dispatch(disp_function());
-      // dispatch(viewingRequests());
+      dispatch(getUserItems());
     } else if (listItemsShow === true) {
       setListItemsShow(false);
     } else {
       setListItemsShow(true);
-      // dispatch(disp_function());
+      dispatch(getUserItems());
       // dispatch(viewingRequests());
     }
   };
   const NavbarItem = styled.img`
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     grid-area: "nav";
   `;
 
@@ -30,7 +29,12 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     grid-area: "main";
     width: 100vw;
     height: 90vh;
+    z-index: 2;
     position: absolute;
+    border: 2px solid red;
+    background: lightyellow;
+    left: 0px;
+    top: 15vh;
   `;
 
   const ListItem = styled.div`
@@ -41,6 +45,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
   //   e.preventDefault();
   //   console.log("DelteFromListRunning");
   // };
+
   useEffect(() => {
     console.log("ItemList Component mounted");
     // dispatch(initialCheckForNewFriendReqs());
@@ -65,7 +70,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
         src={img_url}
       />
       {listItemsShow && (
-        <MainContent>
+        <MainContent className="main-content">
           <h4>I WILL SHOW A LIST OF ITEMS</h4>
 
           {listItems &&
@@ -75,7 +80,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
                 <ListItem key={index}>
                   <p> {item.name}</p>
                   <p> {item.amount}</p>
-                  <p> x</p>
+                  <p onClick={e => dispatch(deleteFromItems(item.id))}> x</p>
                 </ListItem>
               );
             })}
@@ -84,17 +89,3 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     </div> //end div
   ); //end return
 } //closingtag function
-
-//onClick={e => deleteFromList}
-
-// {listItems &&
-//   listItems.map((item, index) => {
-//     console.log(item.id);
-//     return (
-//       <div key={index} className="friend">
-//         <p> {item.name}</p>
-//         <p> {item.amount}</p>
-//         <p> x</p>
-//       </div>
-//     );
-//   })}

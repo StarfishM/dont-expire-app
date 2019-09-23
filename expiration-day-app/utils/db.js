@@ -100,7 +100,10 @@ exports.getUsersPantryAndShoppingItems = id => {
     .catch(err => console.log("Error in DB query getUsersPantry:", err));
 };
 
-// ,account_id, product_id
-// VALUES($1,$2)
-// INSERT INTO userpantry()
-// SELECT name, expiry_date
+exports.deleteItemFromUserPantry = (user_id, item_id) => {
+  return db.query(
+    `DELETE from userpantry
+        WHERE (account_id=$1 AND id=$2)`,
+    [user_id, item_id]
+  );
+};

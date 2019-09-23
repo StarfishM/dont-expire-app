@@ -18,5 +18,18 @@ export default function reducer(state = {}, action) {
     };
   }
 
+  if (action.type === "DELETE_ITEMS_FROM_ITEMS") {
+    state = {
+      ...state,
+      items: state.items.filter(item => {
+        if (item.id !== action.id) {
+          return {
+            ...item
+          };
+        }
+      })
+    };
+  }
+
   return state;
 }

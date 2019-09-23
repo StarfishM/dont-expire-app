@@ -29,3 +29,13 @@ export function getUserItems() {
     };
   });
 }
+
+export function deleteFromItems(id) {
+  return axios.post(`/delete-item/${id}`).then(({ data }) => {
+    console.log("POST deleteFromItems", data);
+    return {
+      type: "DELETE_ITEMS_FROM_ITEMS",
+      id
+    };
+  });
+}

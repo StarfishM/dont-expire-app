@@ -4,7 +4,8 @@ const {
   getInitialProductList,
   addItemtoPantry,
   addItemToShoppingList,
-  getUsersPantryAndShoppingItems
+  getUsersPantryAndShoppingItems,
+  deleteItemFromUserPantry
 } = require("../utils/db");
 const chalk = require("chalk");
 let err = chalk.bold.red;
@@ -92,5 +93,19 @@ app.post("/add-to-list/:item", (req, res) => {
 
     .catch(e => {
       console.log(err("error is addItemToPantery", e));
+    });
+});
+
+app.post("/delete-item/:item", (req, res) => {
+  let itemId = req.params.item;
+  let userId = req.session.user.id;
+  deleteItemFromUserPantry(userId, itemId)
+    .then(data => {
+      res.json({
+        deleted: true
+      });
+    })
+    .catch(e => {
+      console.log(err("error is deleteItemFromUserPantry", e));
     });
 });
