@@ -1,52 +1,73 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getUserItems } from "./actions";
 import { BrowserRouter, Route } from "react-router-dom";
 import HelloWorldText from "./helloWorld";
 import StockPantry from "./app/stockPantry";
 import Calendar from "react-calendar";
 import ItemList from "./app/ItemList";
 import SearchItems from "./app/searchItems";
-export default class App extends Component {
+import styled from "styled-components";
+
+class App extends Component {
   constructor() {
     super();
     this.state = {
       date: new Date()
     };
   }
-  onChange = date => {
-    console.log("*******state", this.state);
 
+  onChange = date => {
     this.setState({ date });
   };
+
   componentDidMount() {
     console.log("APP component mounted");
+    this.props.dispatch(getUserItems());
+    console.log("this.props.dispatch(getUserItems)");
+    console.log("*******state", this.state);
   }
+
   render() {
     return (
       <React.Fragment>
-        <BrowserRouter>
-          <HelloWorldText name="Merle" />
-          <a href="/logout">Logout</a>
+        <div className="main-grid">
+          <BrowserRouter>
+            <div className="nav-bar">
+              <HelloWorldText name="Merle" />
+              <a href="/logout">Logout</a>
 
-          <Route path="/search" component={SearchItems} />
-          <ItemList
-            img_url="./shopping_card_icon.png"
-            disp_function=""
-            onShoppingList="true"
-          />
-          <ItemList
-            img_url=""
-            disp_function="./home_icon.png"
-            onShoppingList="false"
-          />
-          <Route path="/stock-pantry" component={StockPantry} />
-          <Route
-            path="/calendar"
-            component={Calendar}
-            onChange={this.onChange}
-            value={this.state.date}
-          />
-        </BrowserRouter>
+              <ItemList
+                img_url="./shopping_card_icon.png"
+                disp_function=""
+                onShoppingList={true}
+              />
+              <ItemList
+                img_url="./home_icon.png"
+                disp_function=""
+                onShoppingList={false}
+              />
+            </div>
+            <Route path="/search" component={SearchItems} />
+            <Route path="/stock-pantry" component={StockPantry} />
+            <Route
+              path="/calendar"
+              component={Calendar}
+              onChange={this.onChange}
+              value={this.state.date}
+            />
+          </BrowserRouter>
+        </div>
       </React.Fragment>
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log("********STATE", state);
+  return {
+    items: state.items
+  };
+};
+
+export default connect(mapStateToProps)(App);

@@ -3,12 +3,31 @@ const {
   findItems,
   getInitialProductList,
   addItemtoPantry,
-  addItemToShoppingList
+  addItemToShoppingList,
+  getUsersPantryAndShoppingItems
 } = require("../utils/db");
 const chalk = require("chalk");
 let err = chalk.bold.red;
 let routeInfo = chalk.bold.blue;
 let dbInfo = chalk.bold.yellow;
+
+app.get("/useritems", (req, res) => {
+  console.log(routeInfo("Running GET /useritems"));
+  getUsersPantryAndShoppingItems(req.session.user.id)
+    .then(data => {
+      // console.log(dbInfo("return from db", data));
+      res.json({
+        success: true,
+        data
+      });
+    })
+    .catch(error => {
+      console.log("ERROR in GET /useritems", err(error));
+      res.json({
+        success: false
+      });
+    });
+});
 
 app.get(`/find/:val?`, (req, res) => {
   console.log(routeInfo("Running GET /find/:val ROUTE"));

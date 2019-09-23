@@ -86,6 +86,20 @@ exports.addItemToShoppingList = (user_id, item_id) => {
     .catch(err => console.log("Error in DB query addItemToPantry:", err));
 };
 
+exports.getUsersPantryAndShoppingItems = id => {
+  return db
+    .query(
+      `SELECT * FROM userpantry
+        WHERE account_id=$1`,
+      [id]
+    )
+    .then(({ rows }) => {
+      // console.log("rows", rows);
+      return rows;
+    })
+    .catch(err => console.log("Error in DB query getUsersPantry:", err));
+};
+
 // ,account_id, product_id
 // VALUES($1,$2)
 // INSERT INTO userpantry()

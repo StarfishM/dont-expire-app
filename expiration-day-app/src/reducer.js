@@ -1,19 +1,22 @@
 export default function reducer(state = {}, action) {
-  if (action.type === "ADD_TO_PANTRY") {
+  console.log("GET_USER_ITEMS", action);
+  console.log("GET_USER_ITEMS action.type", action.type);
+  if (action.type === "GET_USER_ITEMS") {
+    state = {
+      ...state,
+      items: action.data
+    };
+  }
+  if (
+    action.type === "ADD_TO_PANTRY" ||
+    action.type === "ADD_TO_SHOPPING_LIST"
+  ) {
     console.log("ADD_TO_PANTRY", action);
     state = {
       ...state,
-      pantry_items: action.data,
-      success: action.success
+      items: [...state.items, action.data]
     };
   }
-  if (action.type === "ADD_TO_SHOPPING_LIST") {
-    console.log("ADD_TO_SHOPPING_LIST", action);
-    state = {
-      ...state,
-      shopping_items: action.data,
-      success: action.success
-    };
-  }
+
   return state;
 }

@@ -19,3 +19,25 @@ img {
   border-radius: 50%;
   object-fit: cover;
 }
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "nav"
+    "main"
+    "footer";
+  grid-template-rows: 10vh minmax(81vh, auto) 9vh;
+}
+
+.nav-bar {
+  grid-area: "nav";
+  display: flex;
+  justify-content: flex-end;
+}
+.main-content {
+  grid-area: "main";
+}
+.nav-bar * {
+  padding-right: 10px;
+}
