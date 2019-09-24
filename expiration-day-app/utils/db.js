@@ -107,3 +107,16 @@ exports.deleteItemFromUserPantry = (user_id, item_id) => {
     [user_id, item_id]
   );
 };
+
+exports.getStandardProducts = () => {
+  return db
+    .query(
+      `SELECT* FROM Items
+        WHERE regular_item=true`
+    )
+    .then(({ rows }) => {
+      console.log("rows", rows);
+      return rows;
+    })
+    .catch(err => console.log("Error in DB query getStandardProducts:", err));
+};

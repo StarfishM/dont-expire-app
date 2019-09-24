@@ -1,6 +1,6 @@
-export default function reducer(state = {}, action) {
-  console.log("GET_USER_ITEMS", action);
-  console.log("GET_USER_ITEMS action.type", action.type);
+export default function reducer(state = { standard_items: [] }, action) {
+  // console.log("GET_USER_ITEMS", action);
+  // console.log("GET_USER_ITEMS action.type", action.type);
   if (action.type === "GET_USER_ITEMS") {
     state = {
       ...state,
@@ -11,14 +11,13 @@ export default function reducer(state = {}, action) {
     action.type === "ADD_TO_PANTRY" ||
     action.type === "ADD_TO_SHOPPING_LIST"
   ) {
-    console.log("ADD_TO_PANTRY", action);
     state = {
       ...state,
       items: [...state.items, action.data]
     };
   }
 
-  if (action.type === "DELETE_ITEMS_FROM_ITEMS") {
+  if (action.type === "DELETE_ITEM_FROM_ITEMS") {
     state = {
       ...state,
       items: state.items.filter(item => {
@@ -28,6 +27,13 @@ export default function reducer(state = {}, action) {
           };
         }
       })
+    };
+  }
+
+  if (action.type === "GET_STANDARD_ITEMS") {
+    state = {
+      ...state,
+      standard_items: [...state.standard_items, ...action.standardItems]
     };
   }
 
