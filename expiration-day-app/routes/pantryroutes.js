@@ -6,7 +6,8 @@ const {
   addItemToShoppingList,
   getUsersPantryAndShoppingItems,
   deleteItemFromUserPantry,
-  getStandardProducts
+  getStandardProducts,
+  updateItemInUserPantry
 } = require("../utils/db");
 const chalk = require("chalk");
 const moment = require("moment");
@@ -153,4 +154,20 @@ app.get("/get-standard-products", (req, res) => {
     .catch(e => {
       console.log(err("error in getStandardProducts", e));
     });
+});
+
+app.post("/update-userpantry", (req, res) => {
+  let itemObj = {};
+  console.log(routeInfo("POST /update-userpantry running"));
+  itemObj.amount = req.body.amount;
+  itemObj.purchaseDate = req.body.purchaseDate;
+  itemObj.expiryDate = req.body.expiryDate;
+  itemObj.id = req.body.id;
+  itemObj.account_id = req.body.account_id;
+  itemObj.product_id = req.body.product_id;
+  console.log("********ITEMOBJ", itemObj);
+  updateItemInUserPantry(itemObj);
+  res.json({
+    updatedPantry: true
+  });
 });

@@ -23,10 +23,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log("APP component mounted");
     this.props.dispatch(getUserItems());
-    console.log("this.props.dispatch(getUserItems)");
-    console.log("*******state", this.state);
   }
 
   render() {
@@ -66,7 +63,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("********STATE", state);
+  // console.log("********STATE", state);
   return {
     items: state.items
   };

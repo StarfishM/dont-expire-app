@@ -4,7 +4,8 @@ export function addToPantry(item_id) {
   return axios.post(`/add-to-pantry/${item_id}`).then(({ data }) => {
     return {
       type: "ADD_TO_PANTRY",
-      data: data.data
+      data: data.data,
+      item_id
     };
   });
 }
@@ -13,7 +14,8 @@ export function addToShoppingList(item_id) {
   return axios.post(`/add-to-list/${item_id}`).then(({ data }) => {
     return {
       type: "ADD_TO_SHOPPING_LIST",
-      data: data.data
+      data: data.data,
+      item_id
     };
   });
 }
@@ -43,4 +45,11 @@ export function getInitialStandardProducts() {
       standardItems: data.data
     };
   });
+}
+
+export function removeFromStandardItems(item_id) {
+  return {
+    type: "REMOVE_FROM_STANDARD_ITEMS",
+    item_id
+  };
 }

@@ -3,15 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getInitialStandardProducts,
   addToPantry,
-  addToShoppingList
+  addToShoppingList,
+  removeFromStandardItems
 } from "../actions";
 // import axios from "../axios";
 import styled from "styled-components";
 
-export default function ItemTinder() {
+export default function ItemTinder({ itemId }) {
   // const [listItemsShow, setListItemsShow] = useState();
 
-  const standardItems = useSelector(state => state.standard_items);
+  const standardItems = useSelector(
+    state =>
+      state.standard_items &&
+      state.standard_items.filter(item => !item.reviewed)
+  );
   const dispatch = useDispatch();
   const Wrapper = styled.section`
     display: flex;
@@ -37,18 +42,19 @@ export default function ItemTinder() {
   `;
   const Card = styled.div`
     height: 90vh;
-    width: 40vw;
+    width: 45vw;
     background: lightgreen;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: center;
   `;
   const ProductImage = styled.img`
     height: 80vh;
     width: 40vw;
-    border-radius: 20px;
+    border-radius: 40px;
     object-fit: contain;
-    padding-bottom: 10px;
+    padding: 10px;
   `;
   const Icon = styled.img`
     display: flex;
@@ -58,6 +64,7 @@ export default function ItemTinder() {
     padding: 10px;
     border-radius: 5px;
     border: solid 1px black;
+    cursor: pointer;
   `;
 
   if (!standardItems) {
@@ -76,14 +83,20 @@ export default function ItemTinder() {
             <Icon
               src="./shopping_card_icon.png"
               alt=""
-              onClick={e => dispatch(addToShoppingList())}
+              onClick={e => dispatch(addToShoppingList(standardItems[0].id))}
             ></Icon>
             <Icon
               src="./home_icon.png"
               alt=""
-              onClick={e => dispatch(addToPantry())}
+              onClick={e => dispatch(addToPantry(standardItems[0].id))}
             ></Icon>
-            <Icon src="./no_icon.png" alt=""></Icon>
+            <Icon
+              src="./no_icon.png"
+              alt=""
+              onClick={e =>
+                dispatch(removeFromStandardItems(standardItems[0].id))
+              }
+            ></Icon>
           </Wrapper>
         </Card>
       )}

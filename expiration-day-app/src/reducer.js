@@ -1,4 +1,7 @@
-export default function reducer(state = { standard_items: [] }, action) {
+export default function reducer(
+  state = { items: [], standard_items: [] },
+  action
+) {
   // console.log("GET_USER_ITEMS", action);
   // console.log("GET_USER_ITEMS action.type", action.type);
   if (action.type === "GET_USER_ITEMS") {
@@ -13,7 +16,16 @@ export default function reducer(state = { standard_items: [] }, action) {
   ) {
     state = {
       ...state,
-      items: [...state.items, action.data]
+      items: [...state.items, action.data],
+      standard_items: state.standard_items.map(item => {
+        if (item.id === action.item_id) {
+          return { ...item, reviewed: true };
+        } else {
+          return {
+            ...item
+          };
+        }
+      })
     };
   }
 
@@ -33,9 +45,27 @@ export default function reducer(state = { standard_items: [] }, action) {
   if (action.type === "GET_STANDARD_ITEMS") {
     state = {
       ...state,
-      standard_items: [...state.standard_items, ...action.standardItems]
+      standard_items: action.standardItems.map(item => {
+        return { ...item, reviewed: false };
+      })
     };
   }
 
+  if (action.type === "REMOVE_FROM_STANDARD_ITEMS") {
+    console.log("removeFromStandardItems is running in reducer");
+    state = {
+      items: [...state.items],
+      standard_items: state.standard_items.map(item => {
+        console.log("state.standard_items", state.standard_items);
+        if (item.id === action.item_id) {
+          return { ...item, reviewed: true };
+        } else {
+          return {
+            ...item
+          };
+        }
+      })
+    };
+  }
   return state;
 }
