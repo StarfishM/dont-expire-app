@@ -7,7 +7,8 @@ import StockPantry from "./app/stockPantry";
 import Calendar from "react-calendar";
 import ItemList from "./app/ItemList";
 import SearchItems from "./app/searchItems";
-import styled from "styled-components";
+import ItemTinder from "./app/ItemTinder";
+// import styled from "styled-components";
 
 class App extends Component {
   constructor() {
@@ -22,10 +23,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log("APP component mounted");
     this.props.dispatch(getUserItems());
-    console.log("this.props.dispatch(getUserItems)");
-    console.log("*******state", this.state);
   }
 
   render() {
@@ -56,6 +54,7 @@ class App extends Component {
               onChange={this.onChange}
               value={this.state.date}
             />
+            <Route path="/item-tinder" component={ItemTinder} />
           </BrowserRouter>
         </div>
       </React.Fragment>
@@ -64,7 +63,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("********STATE", state);
+  // console.log("********STATE", state);
   return {
     items: state.items
   };

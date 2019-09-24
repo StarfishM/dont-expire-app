@@ -13,7 +13,6 @@ export default function SearchItems() {
 
   const onInputChange = e => {
     setSearchInput(e.target.value);
-    console.log("inputSearch:", searchInput);
   };
   const MainContent = styled.div`
     grid-area: "main";
@@ -25,7 +24,6 @@ export default function SearchItems() {
     let ignore = false;
     (async () => {
       const { data } = await axios.get(`find/${searchInput || ""}`);
-      console.log(("DB RETURN GET/find:", data));
       if (!ignore) {
         setSearchItemsList(data.items);
       } else {
@@ -41,7 +39,6 @@ export default function SearchItems() {
     <div>
       <MainContent>
         <h2>ADD ITEMS TO PANTRY/LIST SEARCH ITEMS COMPONENT</h2>
-        <h2>I AM A CHANGE</h2>
         <input
           name="finditem"
           placeholder="search items"

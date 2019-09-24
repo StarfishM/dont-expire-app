@@ -107,3 +107,37 @@ exports.deleteItemFromUserPantry = (user_id, item_id) => {
     [user_id, item_id]
   );
 };
+
+exports.getStandardProducts = () => {
+  return db
+    .query(
+      `SELECT* FROM Items
+        WHERE regular_item=true`
+    )
+    .then(({ rows }) => {
+      console.log("rows", rows);
+      return rows;
+    })
+    .catch(err => console.log("Error in DB query getStandardProducts:", err));
+};
+
+exports.updateItemInUserPantry = pantryObj => {
+  return db
+    .query(
+      `UPDATE userpantry
+      SET amount=$1, date_bought=$2, expires_after_date_bought=$3
+      WHERE id=$4`,
+      [
+        pantryObj.amount,
+        pantryObj.purchaseDate,
+        pantryObj.expiry_date,
+        pantryObj.id
+      ]
+    )
+    .then(({ rows }) => {
+      return rows;
+    })
+    .catch(err =>
+      console.log("Error in DB query updateItemInUserPantry:", err)
+    );
+};
