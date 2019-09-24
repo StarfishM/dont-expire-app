@@ -27,6 +27,14 @@ app.get("/useritems", (req, res) => {
           let purchaseDate = moment(data[i].created_at)
             .utc()
             .format("YYYY-MM-DD");
+          data[i].date_bought = moment(data[i].date_bought)
+            .utc()
+            .format("YYYY-MM-DD");
+          data[i].expires_after_date_bought = moment(
+            data[i].expires_after_date_bought
+          )
+            .utc()
+            .format("YYYY-MM-DD");
           // console.log("****PURCHASE DATE****", purchaseDate);
           data[i].expires_at = calculateExpirationDate(
             purchaseDate,
@@ -34,7 +42,7 @@ app.get("/useritems", (req, res) => {
           );
           // console.log("data.expires_at", data.expires_at);
           // console.log("days until expiry", data[i].expiry_date);
-          // console.log("data after expiry calculation:", data);
+          console.log("data after expiry calculation:", data);
         }
       }
 

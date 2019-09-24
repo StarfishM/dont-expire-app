@@ -90,7 +90,8 @@ exports.getUsersPantryAndShoppingItems = id => {
   return db
     .query(
       `SELECT * FROM userpantry
-        WHERE account_id=$1`,
+        WHERE account_id=$1
+        ORDER BY expires_after_date_bought`,
       [id]
     )
     .then(({ rows }) => {
@@ -130,7 +131,7 @@ exports.updateItemInUserPantry = pantryObj => {
       [
         pantryObj.amount,
         pantryObj.purchaseDate,
-        pantryObj.expiry_date,
+        pantryObj.expiryDate,
         pantryObj.id
       ]
     )

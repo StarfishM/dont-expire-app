@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
 import styled from "styled-components";
+import { getUserItems } from "../actions";
+import { useDispatch } from "react-redux";
 
 export default function ItemDetailedView({ itemInFocus, addItemInfo }) {
+  const dispatch = useDispatch();
+  let curr = new Date();
+  let expires = new Date();
+  curr.setDate(curr.getDate());
+  expires.setDate(curr.getDate() + itemInFocus.expiry_date);
+  let date = curr.toISOString().substr(0, 10);
+  let expiryDate = expires.toISOString().substr(0, 10);
   const [updateItem, setUpdateItem] = useState({
     account_id: itemInFocus.account_id,
     product_id: itemInFocus.product_id,
     id: itemInFocus.id,
     amount: "",
-    purchaseDate: new Date(),
-    expiryDate: new Date()
+    purchaseDate: date,
+    expiryDate: expiryDate
   });
   const ProductDetailForm = styled.div`
     width: 50vw;
@@ -36,8 +45,10 @@ export default function ItemDetailedView({ itemInFocus, addItemInfo }) {
   const updateUserItemTbl = e => {
     e.preventDefault();
     console.log("user want to update db info", updateItem);
-    axios.post("/update-userpantry", updateItem);
-    addItemInfo(itemInFocus);
+    axios.post("/update-userpantry", updateItem).then(resp => {
+      addItemInfo(itemInFocus);
+      dispatch(getUserItems());
+    });
   };
 
   const cancel = e => {
@@ -45,20 +56,10 @@ export default function ItemDetailedView({ itemInFocus, addItemInfo }) {
     addItemInfo(itemInFocus);
   };
   useEffect(() => {
-    // console.log("ItemDetailedView Component mounted");
     setUpdateItem({
-      ...updateItem,
-      purchaseDate: date,
-      expiryDate: expiryDate
+      ...updateItem
     });
   }, []);
-
-  let curr = new Date();
-  let expires = new Date();
-  curr.setDate(curr.getDate());
-  expires.setDate(curr.getDate() + itemInFocus.expiry_date);
-  let date = curr.toISOString().substr(0, 10);
-  let expiryDate = expires.toISOString().substr(0, 10);
 
   console.log("itemInFocus", itemInFocus);
   return (

@@ -86,8 +86,13 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
                 <ListItem key={index}>
                   <p onClick={() => addItemInfo(item)}> {item.name}</p>
                   <p> {item.amount}</p>
+                  {item.expires_after_date_bought && (
+                    <p>Expires: {item.expires_after_date_bought} </p>
+                  )}
+                  {item.expires_at && (
+                    <p> Default Expiration Date:{item.expires_at}</p>
+                  )}
                   <p onClick={e => dispatch(deleteFromItems(item.id))}> x</p>
-                  {item.expires_at && <p> ITEM EXPIRES AT:{item.expires_at}</p>}
                 </ListItem>
               );
             })}
