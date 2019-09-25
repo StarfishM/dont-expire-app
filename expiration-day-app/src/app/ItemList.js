@@ -8,7 +8,6 @@ import {
   deleteAllFromPantryList
 } from "../actions";
 import ItemDetailedView from "./ItemDetailedView";
-// import axios from "../axios";
 import styled from "styled-components";
 
 export const MainContent = styled.div`
@@ -31,7 +30,6 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
   const [listItemsShow, setListItemsShow] = useState();
   const [itemDetailShow, setItemDetailShow] = useState();
   const [itemInFocus, setItemInFocus] = useState();
-  // const [shoppingList, setShoppingList] = useState();
 
   const dispatch = useDispatch();
   const getListItems = () => {
@@ -43,7 +41,6 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     } else {
       setListItemsShow(true);
       dispatch(getUserItems());
-      // dispatch(viewingRequests());
     }
   };
   const addItemInfo = item => {

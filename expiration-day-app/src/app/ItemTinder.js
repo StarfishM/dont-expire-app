@@ -6,7 +6,7 @@ import {
   addToShoppingList,
   removeFromStandardItems
 } from "../actions";
-// import axios from "../axios";
+import { ListItem } from "./ItemList";
 import styled from "styled-components";
 
 export default function ItemTinder({ itemId }) {

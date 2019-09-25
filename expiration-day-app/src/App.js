@@ -37,6 +37,9 @@ class App extends Component {
               <Link to="/search">
                 <img className="icon" src="search_icon.png" alt="" />
               </Link>
+              <Link to="/item-Tinder">
+                <img className="icon" src="./item-tinder" alt="" />
+              </Link>
               <ExpiryList />
               <ItemList
                 img_url="./shopping_card_icon.png"
