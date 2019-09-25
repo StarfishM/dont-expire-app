@@ -42,3 +42,15 @@ img {
 .nav-bar * {
   padding-right: 10px;
 }
+
+.icon {
+  width: 45px;
+  height: 45px;
+  grid-area: "nav";
+}
+
+.icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}

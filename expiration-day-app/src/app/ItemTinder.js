@@ -88,7 +88,14 @@ export default function ItemTinder({ itemId }) {
             <Icon
               src="./home_icon.png"
               alt=""
-              onClick={e => dispatch(addToPantry(standardItems[0].id))}
+              onClick={e =>
+                dispatch(
+                  addToPantry(
+                    standardItems[0].id,
+                    standardItems[0].time_until_expiry
+                  )
+                )
+              }
             ></Icon>
             <Icon
               src="./no_icon.png"

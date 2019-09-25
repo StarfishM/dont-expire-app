@@ -1,5 +1,5 @@
 export default function reducer(
-  state = { items: [], standard_items: [] },
+  state = { items: [], standard_items: [], expiryItems: [] },
   action
 ) {
   // console.log("GET_USER_ITEMS", action);
@@ -14,6 +14,7 @@ export default function reducer(
     action.type === "ADD_TO_PANTRY" ||
     action.type === "ADD_TO_SHOPPING_LIST"
   ) {
+    console.log("action in ADD_TO_PANTRY:", action);
     state = {
       ...state,
       items: [...state.items, action.data],
@@ -65,6 +66,14 @@ export default function reducer(
           };
         }
       })
+    };
+  }
+
+  if (action.type === "GET_EXPIRY_ITEMS") {
+    console.log("getExpiryItems is running in reducer", action);
+    state = {
+      ...state,
+      expiryItems: action.expiryItems.data
     };
   }
   return state;

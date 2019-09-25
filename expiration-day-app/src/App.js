@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUserItems } from "./actions";
-import { BrowserRouter, Route } from "react-router-dom";
+import { getUserItems, getExpiryItems } from "./actions";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import HelloWorldText from "./helloWorld";
-import StockPantry from "./app/stockPantry";
 import Calendar from "react-calendar";
 import ItemList from "./app/ItemList";
 import SearchItems from "./app/searchItems";
 import ItemTinder from "./app/ItemTinder";
+import ExpiryList from "./app/ExpiryList";
 // import styled from "styled-components";
 
 class App extends Component {
@@ -34,7 +34,10 @@ class App extends Component {
             <div className="nav-bar">
               <HelloWorldText name="Merle" />
               <a href="/logout">Logout</a>
-
+              <Link to="/search">
+                <img className="icon" src="search_icon.png" alt="" />
+              </Link>
+              <ExpiryList />
               <ItemList
                 img_url="./shopping_card_icon.png"
                 disp_function=""
@@ -47,7 +50,6 @@ class App extends Component {
               />
             </div>
             <Route path="/search" component={SearchItems} />
-            <Route path="/stock-pantry" component={StockPantry} />
             <Route
               path="/calendar"
               component={Calendar}
@@ -70,3 +72,7 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(App);
+
+// <Link to="/expiry-list">
+//   <img className="icon" src="expired_icon.png" alt="" />
+// </Link>

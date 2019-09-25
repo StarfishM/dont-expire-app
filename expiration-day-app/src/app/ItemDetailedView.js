@@ -72,6 +72,7 @@ export default function ItemDetailedView({ itemInFocus, addItemInfo }) {
           type="text"
           name="amount"
           value={updateItem.amount}
+          required="required"
         />
       </AmountContainer>
       <label htmlFor="purchaseDate">Select day of purchase</label>

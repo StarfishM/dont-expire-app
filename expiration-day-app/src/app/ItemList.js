@@ -25,7 +25,6 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     }
   };
   const addItemInfo = item => {
-    console.log("Running addItemInfo in ItemList", item);
     if (!itemDetailShow) {
       setItemDetailShow(true);
       setItemInFocus(item);
@@ -66,11 +65,6 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
   `;
 
   useEffect(() => {
-    // if (this.onShoppingList === true) {
-    //   setShoppingList({
-    //     shoppingList: true
-    //   });
-    // }
     console.log("ItemList Component mounted");
   }, []);
 
@@ -79,7 +73,6 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
       state.items &&
       state.items.filter(elem => elem.on_shopping_list === onShoppingList)
   );
-  console.log("*****", listItems);
   return (
     <div>
       <NavbarItem
@@ -116,7 +109,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
                 </ListItem>
               );
             })}
-          {onShoppingList && (
+          {onShoppingList.length > 0 && (
             <div>
               <button>bought all items</button>
               <button>remove all items</button>

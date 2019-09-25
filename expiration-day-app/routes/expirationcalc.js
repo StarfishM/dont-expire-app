@@ -1,10 +1,22 @@
-const moment = require("moment");
+const moment = require("moment-timezone");
+let today = new Date();
+let todayFormatted = moment(today, "YYYY-MM-DD");
 
-exports.calculateExpirationDate = (purchaseDate, daysToExpiry) => {
-  let expiryDate = moment(purchaseDate, "YYYY-MM-DD");
-  let calcExpDate = expiryDate.add(daysToExpiry, "days");
+exports.calculateDefaultExpirationDate = daysToExpiry => {
+  console.log("DAYS TO EXPIRY:", daysToExpiry);
+  let calcExpDate = todayFormatted.add(daysToExpiry, "days");
+  console.log(calcExpDate);
   calcExpDate = moment(calcExpDate)
-    .utc()
+    .tz("Europe/Berlin")
     .format("YYYY-MM-DD");
+  console.log("************calcExpDate", calcExpDate);
   return calcExpDate;
+};
+
+exports.calculateCompareValueForDB = () => {
+  let expiryFromToday = todayFormatted.add("2", "days");
+  let expiryFromTodayFormatted = moment(expiryFromToday)
+    .tz("Europe/Berlin")
+    .format("YYYY-MM-DD");
+  return expiryFromTodayFormatted;
 };

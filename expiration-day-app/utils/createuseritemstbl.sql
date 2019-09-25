@@ -12,5 +12,6 @@ CREATE TABLE userpantry(
     date_bought DATE NOT NULL DEFAULT CURRENT_DATE,
     expires_after_date_bought DATE,
     on_shopping_list BOOLEAN DEFAULT FALSE,
-    used_up BOOLEAN DEFAULT FALSE
+    used_up BOOLEAN DEFAULT FALSE,
+    seen_expiry_warning BOOLEAN DEFAULT FALSE
 );

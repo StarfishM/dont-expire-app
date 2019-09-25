@@ -1,13 +1,17 @@
 import axios from "./axios";
 
-export function addToPantry(item_id) {
-  return axios.post(`/add-to-pantry/${item_id}`).then(({ data }) => {
-    return {
-      type: "ADD_TO_PANTRY",
-      data: data.data,
-      item_id
-    };
-  });
+export function addToPantry(item_id, expiry_date) {
+  console.log("add to pantry action", item_id, expiry_date);
+  return axios
+    .post(`/add-to-pantry/${item_id}`, { expiry_date })
+    .then(({ data }) => {
+      console.log("DAta in add to pantry action", data);
+      return {
+        type: "ADD_TO_PANTRY",
+        data: data.data,
+        item_id
+      };
+    });
 }
 
 export function addToShoppingList(item_id) {
@@ -52,4 +56,14 @@ export function removeFromStandardItems(item_id) {
     type: "REMOVE_FROM_STANDARD_ITEMS",
     item_id
   };
+}
+
+export function getExpiryItems() {
+  return axios.get("/get-expiry-items").then(({ data }) => {
+    console.log("****ACTION DATA", data);
+    return {
+      type: "GET_EXPIRY_ITEMS",
+      expiryItems: data
+    };
+  });
 }

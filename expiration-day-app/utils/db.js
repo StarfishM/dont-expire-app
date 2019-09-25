@@ -54,15 +54,15 @@ exports.findItems = val => {
     });
 };
 
-exports.addItemtoPantry = (user_id, item_id) => {
+exports.addItemtoPantry = (user_id, item_id, expires) => {
   return db
     .query(
-      `INSERT INTO userpantry(account_id, product_id, name,expiry_date)
-      SELECT $1,$2,name, time_until_expiry
+      `INSERT INTO userpantry(account_id, product_id,expires_after_date_bought, name,expiry_date)
+      SELECT $1,$2,$3,name, time_until_expiry
     FROM items
     WHERE id=$2
     RETURNING *`,
-      [user_id, item_id]
+      [user_id, item_id, expires]
     )
     .then(({ rows }) => {
       return rows;
@@ -141,4 +141,18 @@ exports.updateItemInUserPantry = pantryObj => {
     .catch(err =>
       console.log("Error in DB query updateItemInUserPantry:", err)
     );
+};
+
+exports.getExpiryItems = (userId, expire) => {
+  return db
+    .query(
+      `SELECT * FROM userpantry
+        WHERE (account_id=$1 AND expires_after_date_bought =$2)`,
+      [userId, expire]
+    )
+    .then(({ rows }) => {
+      console.log("rows in getExpiryItems:", rows);
+      return rows;
+    })
+    .catch(err => console.log("Error in DB getExpiryItems:", err));
 };

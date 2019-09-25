@@ -40,6 +40,7 @@ app.use(function(req, res, next) {
 ////////////////////////////////////
 require("./routes/logregroutes");
 require("./routes/pantryroutes");
+require("./routes/expirationroutes");
 
 // Route for not logged in users
 const requireLogin = (req, res, next) => {

@@ -60,10 +60,10 @@ app.post("/register", (req, res) => {
           .then(data => {
             req.session.user = {};
             req.session.user.id = data.id;
-            res.redirect("/item-Tinder");
-            // res.json({
-            //     success: true
-            // });
+            // res.redirect("/item-Tinder");
+            res.json({
+              success: true
+            });
           })
           .catch(error => {
             console.log("Error in userCreate:", err(error));

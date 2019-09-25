@@ -6,6 +6,11 @@ import styled from "styled-components";
 
 // import { Link } from "react-router-dom";
 
+const MainContent = styled.div`
+  grid-area: "main";
+  background: lightyellow;
+  width: 100vw;
+`;
 export default function SearchItems() {
   const [searchInput, setSearchInput] = useState();
   const [searchItemsList, setSearchItemsList] = useState([]);
@@ -14,11 +19,6 @@ export default function SearchItems() {
   const onInputChange = e => {
     setSearchInput(e.target.value);
   };
-  const MainContent = styled.div`
-    grid-area: "main";
-    background: lightyellow;
-    width: 100vw;
-  `;
 
   useEffect(() => {
     let ignore = false;
@@ -63,7 +63,9 @@ export default function SearchItems() {
                     alt={item.name}
                   />
                   <img
-                    onClick={e => dispatch(addToPantry(item.id))}
+                    onClick={e =>
+                      dispatch(addToPantry(item.id, item.expiry_date))
+                    }
                     src="./home_icon.png"
                     alt={item.name}
                   />
