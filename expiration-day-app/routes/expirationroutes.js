@@ -15,11 +15,16 @@ app.get("/get-expiry-items", (req, res) => {
   console.log(routeInfo("GET /get-expiry-items running"));
   let userId = req.session.user.id;
   let compareValue = calculateCompareValueForDB();
+  console.log("****compare Value", compareValue);
   getExpiryItems(userId, compareValue)
     .then(data => {
       console.log(dbInfo("DB RETURN getExpiryItems", data));
+      for (let i = 0; i < data.length; i++) {
+        data[i].expires_after_date_bought = moment(
+          data[i].expires_after_date_bought
+        ).fromNow();
+      }
       res.json({
-        success: true,
         data
       });
     })

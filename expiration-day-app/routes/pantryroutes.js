@@ -21,6 +21,14 @@ app.get("/useritems", (req, res) => {
   console.log(routeInfo("Running GET /useritems"));
   getUsersPantryAndShoppingItems(req.session.user.id)
     .then(data => {
+      console.log(dbInfo("getUsersPantryAndShoppingItems", data));
+      for (let i = 0; i < data.length; i++) {
+        if (!data[i].on_shopping_list) {
+          data[i].expires_after_date_bought = moment(
+            data[i].expires_after_date_bought
+          ).format("YYYY-MM-DD");
+        }
+      }
       res.json({
         success: true,
         data
@@ -68,25 +76,9 @@ app.post("/add-to-pantry/:item", (req, res) => {
   let itemId = req.params.item;
   let userId = req.session.user.id;
   let daysUntilExp = req.body.expiry_date;
-  console.log("req.body", req.body);
-  console.log("days until exp", req.body.expiry_date);
   let expires = calculateDefaultExpirationDate(daysUntilExp);
-  console.log("****expires****", expires);
   addItemtoPantry(userId, itemId, expires)
     .then(data => {
-      // console.log(dbInfo("addItemtoPantry db return:"), data);
-
-      // let purchaseDate = moment(data[0].created_at)
-      //   .utc()
-      //   .format("YYYY-MM-DD");
-      // // console.log("****PURCHASE DATE****", purchaseDate);
-      // data[0].expires_after_date_bought = calculateDefaultExpirationDate(
-      //   purchaseDate,
-      //   data[0].expires_after_date_bought
-      // );
-      // // console.log("data.expires_at", data.expires_at);
-      // console.log("days until expiry", data[0].expiry_date);
-      // console.log("data after expiry calculation:", data);
       res.json({
         data,
         success: true
@@ -97,15 +89,20 @@ app.post("/add-to-pantry/:item", (req, res) => {
     });
 });
 
+app.post("/add-all-to-pantry", (req, res) => {
+  console.log(routeInfo("POST /add-all-to-pantry"));
+  console.log("#########req.body.shoppingItemsArr", req.body.shoppingItemsArr);
+  res.json({
+    success: true
+  });
+});
+
 app.post("/add-to-list/:item", (req, res) => {
   let itemId = req.params.item;
   let userId = req.session.user.id;
   console.log(routeInfo("POST /add-to-list"));
-  // console.log("req.params.id:", req.params.item);
-  // console.log("req.session.user.id", req.session.user.id);
   addItemToShoppingList(userId, itemId)
     .then(data => {
-      // console.log(dbInfo("addItemtoShoppingList db return:"), data);
       res.json({
         data,
         success: true
@@ -134,7 +131,6 @@ app.post("/delete-item/:item", (req, res) => {
 app.get("/get-standard-products", (req, res) => {
   getStandardProducts()
     .then(data => {
-      // console.log(dbInfo("DB return from getStandardProducts", data));
       res.json({
         data
       });
@@ -153,7 +149,6 @@ app.post("/update-userpantry", (req, res) => {
   itemObj.id = req.body.id;
   itemObj.account_id = req.body.account_id;
   itemObj.product_id = req.body.product_id;
-  console.log("********ITEMOBJ", itemObj);
   updateItemInUserPantry(itemObj);
   res.json({
     updatedPantry: true

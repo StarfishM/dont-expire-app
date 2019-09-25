@@ -39,6 +39,13 @@ export default function reducer(
             ...item
           };
         }
+      }),
+      expiryItems: state.expiryItems.filter(item => {
+        if (item.id !== action.id) {
+          return {
+            ...item
+          };
+        }
       })
     };
   }
@@ -76,5 +83,9 @@ export default function reducer(
       expiryItems: action.expiryItems.data
     };
   }
+  if (action.type === "ADD_ALL_ITEMS_TO_PANTRY") {
+    console.log("add all items in reducer", action);
+  }
+
   return state;
 }

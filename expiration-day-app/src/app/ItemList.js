@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFromItems, getUserItems } from "../actions";
+import {
+  deleteFromItems,
+  getUserItems,
+  addAllItemsFromShoppingToPantry
+} from "../actions";
 import ItemDetailedView from "./ItemDetailedView";
 // import axios from "../axios";
 import styled from "styled-components";
@@ -72,6 +76,12 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
       state.items &&
       state.items.filter(elem => elem.on_shopping_list === onShoppingList)
   );
+  const shoppingItems = useSelector(
+    state =>
+      state.items && state.items.filter(elem => elem.on_shopping_list === true)
+  );
+  console.log("shoppingItems", shoppingItems);
+
   return (
     <div>
       <NavbarItem
@@ -90,7 +100,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
                 <ListItem key={index}>
                   <p onClick={() => addItemInfo(item)}> {item.name}</p>
                   <p> {item.amount}</p>
-                  {item.expires_after_date_bought && (
+                  {!onShoppingList && (
                     <div>
                       <p>Expires: {item.expires_after_date_bought} </p>
                       <Icon src="./expired_icon.png" alt="" />
@@ -99,18 +109,19 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
                   {item.expires_at && (
                     <p> Default Expiration Date:{item.expires_at}</p>
                   )}
-                  {item.on_shopping_list && (
-                    <div>
-                      <button>bought</button>
-                    </div>
-                  )}
                   <p onClick={e => dispatch(deleteFromItems(item.id))}> x</p>
                 </ListItem>
               );
             })}
           {onShoppingList && (
             <div>
-              <button>bought all items</button>
+              <button
+                onClick={e =>
+                  dispatch(addAllItemsFromShoppingToPantry(shoppingItems))
+                }
+              >
+                bought all items
+              </button>
               <button>remove all items</button>
             </div>
           )}

@@ -65,14 +65,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log("********STATE", state);
   return {
     items: state.items
   };
 };
 
 export default connect(mapStateToProps)(App);
-
-// <Link to="/expiry-list">
-//   <img className="icon" src="expired_icon.png" alt="" />
-// </Link>

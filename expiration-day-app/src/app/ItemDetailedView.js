@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
 import styled from "styled-components";
-import { getUserItems } from "../actions";
+import { getUserItems, getExpiryItems } from "../actions";
 import { useDispatch } from "react-redux";
 
 export default function ItemDetailedView({
@@ -52,6 +52,7 @@ export default function ItemDetailedView({
     axios.post("/update-userpantry", updateItem).then(resp => {
       addItemInfo(itemInFocus);
       dispatch(getUserItems());
+      dispatch(getExpiryItems());
     });
   };
 
@@ -108,31 +109,3 @@ export default function ItemDetailedView({
     </ProductDetailForm>
   );
 }
-// value={updateItem.purchaseDate}
-// value={updateItem.expiryDate}
-// <label htmlFor="qty">grams</label>
-// <input
-//   onClick={handleChange}
-//   type="radio"
-//   id="g"
-//   name="qty"
-//   value={updateItem.qty}
-// />
-// <label htmlFor="l">liters</label>
-// <input
-//   onClick={handleChange}
-//   type="radio"
-//   id="l"
-//   name="qty"
-//   value={updateItem.qty}
-// />
-// <label htmlFor="qty">quantity</label>
-// <input
-//   onClick={handleChange}
-//   type="radio"
-//   id="qty"
-//   name="qty"
-//   value={updateItem.qty}
-// />
-// value={updateItem.purchaseDate}
-// value={updateItem.expiryDate}

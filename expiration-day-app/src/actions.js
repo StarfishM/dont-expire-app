@@ -1,11 +1,9 @@
 import axios from "./axios";
 
 export function addToPantry(item_id, expiry_date) {
-  console.log("add to pantry action", item_id, expiry_date);
   return axios
     .post(`/add-to-pantry/${item_id}`, { expiry_date })
     .then(({ data }) => {
-      console.log("DAta in add to pantry action", data);
       return {
         type: "ADD_TO_PANTRY",
         data: data.data,
@@ -60,10 +58,21 @@ export function removeFromStandardItems(item_id) {
 
 export function getExpiryItems() {
   return axios.get("/get-expiry-items").then(({ data }) => {
-    console.log("****ACTION DATA", data);
     return {
       type: "GET_EXPIRY_ITEMS",
       expiryItems: data
     };
   });
+}
+
+export function addAllItemsFromShoppingToPantry(shoppingItemsArr) {
+  console.log("running addAllItems", shoppingItemsArr);
+  return axios
+    .post("/add-all-to-pantry", { shoppingItemsArr })
+    .then(({ data }) => {
+      console.log("****ACTION DATA", data);
+      return {
+        type: "ADD_ALL_ITEMS_TO_PANTRY"
+      };
+    });
 }

@@ -70,6 +70,12 @@ exports.addItemtoPantry = (user_id, item_id, expires) => {
     .catch(err => console.log("Error in DB query addItemToPantry:", err));
 };
 
+exports.addAllItemsFromShoppingToPantry = (user_id, expires) => {
+  return db.query(`UPDATE userpantry
+      SET on_shopping_list=false, expires_after_date_bought=$3
+      WHERE user_id=$2`);
+};
+
 exports.addItemToShoppingList = (user_id, item_id) => {
   return db
     .query(
@@ -95,7 +101,7 @@ exports.getUsersPantryAndShoppingItems = id => {
       [id]
     )
     .then(({ rows }) => {
-      // console.log("rows", rows);
+      console.log("rows getUsersPantryAndShoppingItems", rows);
       return rows;
     })
     .catch(err => console.log("Error in DB query getUsersPantry:", err));
@@ -147,7 +153,8 @@ exports.getExpiryItems = (userId, expire) => {
   return db
     .query(
       `SELECT * FROM userpantry
-        WHERE (account_id=$1 AND expires_after_date_bought <=$2)`,
+        WHERE (account_id=$1 AND expires_after_date_bought <=$2 AND on_shopping_list = false)
+        ORDER BY expires_after_date_bought`,
       [userId, expire]
     )
     .then(({ rows }) => {
