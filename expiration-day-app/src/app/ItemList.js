@@ -9,6 +9,8 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
   const [listItemsShow, setListItemsShow] = useState();
   const [itemDetailShow, setItemDetailShow] = useState();
   const [itemInFocus, setItemInFocus] = useState();
+  // const [shoppingList, setShoppingList] = useState();
+
   const dispatch = useDispatch();
   const getListItems = () => {
     if (!listItemsShow) {
@@ -58,7 +60,17 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     padding-right: 10px;
   `;
 
+  const Icon = styled.img`
+    width: 20px;
+    height: 20px;
+  `;
+
   useEffect(() => {
+    // if (this.onShoppingList === true) {
+    //   setShoppingList({
+    //     shoppingList: true
+    //   });
+    // }
     console.log("ItemList Component mounted");
   }, []);
 
@@ -87,15 +99,29 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
                   <p onClick={() => addItemInfo(item)}> {item.name}</p>
                   <p> {item.amount}</p>
                   {item.expires_after_date_bought && (
-                    <p>Expires: {item.expires_after_date_bought} </p>
+                    <div>
+                      <p>Expires: {item.expires_after_date_bought} </p>
+                      <Icon src="./expired_icon.png" alt="" />
+                    </div>
                   )}
                   {item.expires_at && (
                     <p> Default Expiration Date:{item.expires_at}</p>
+                  )}
+                  {item.on_shopping_list && (
+                    <div>
+                      <button>bought</button>
+                    </div>
                   )}
                   <p onClick={e => dispatch(deleteFromItems(item.id))}> x</p>
                 </ListItem>
               );
             })}
+          {onShoppingList && (
+            <div>
+              <button>bought all items</button>
+              <button>remove all items</button>
+            </div>
+          )}
           {itemDetailShow && (
             <ItemDetailedView
               itemInFocus={itemInFocus}
