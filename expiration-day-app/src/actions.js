@@ -76,3 +76,25 @@ export function addAllItemsFromShoppingToPantry(shoppingItemsArr) {
       };
     });
 }
+
+export function deleteAllFromShoppingList() {
+  console.log("running deleteAllFromShoppingList");
+  return axios.post("/delete-all-shopping").then(({ data }) => {
+    console.log("****ACTION DATA deleteAllFromShoppingList", data);
+    return {
+      type: "DELETE_ALL_FROM_SHOPPING",
+      data
+    };
+  });
+}
+
+export function deleteAllFromPantryList() {
+  console.log("running deleteAllFromPantryList");
+  return axios.post("/delete-all-pantry").then(({ data }) => {
+    console.log("****ACTION deleteAllFromPantryList DATA", data);
+    return {
+      type: "DELETE_ALL_FROM_PANTRY",
+      data
+    };
+  });
+}

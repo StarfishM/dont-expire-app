@@ -87,5 +87,33 @@ export default function reducer(
     console.log("add all items in reducer", action);
   }
 
+  if (action.type === "DELETE_ALL_FROM_SHOPPING") {
+    state = {
+      ...state,
+      items: state.items.filter(item => {
+        if (!item.onShoppingList) {
+          console.log("item to be returned in delete from shopping", item);
+          return {
+            ...item
+          };
+        }
+      })
+    };
+  }
+  if (action.type === "DELETE_ALL_FROM_PANTRY") {
+    console.log("DELETE ALL FROM PANTRY IN REDUCER RUNNING");
+
+    state = {
+      ...state,
+      items: state.items.filter(item => {
+        if (item.onShoppingList) {
+          return {
+            ...item
+          };
+        }
+      })
+    };
+  }
+
   return state;
 }

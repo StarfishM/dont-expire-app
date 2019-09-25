@@ -8,7 +8,9 @@ const {
   deleteItemFromUserPantry,
   getStandardProducts,
   updateItemInUserPantry,
-  addAllItemsFromShoppingToPantry
+  addAllItemsFromShoppingToPantry,
+  deleteAllFromShoppingList,
+  deleteAllFromUserPantry
 } = require("../utils/db");
 const chalk = require("chalk");
 const moment = require("moment");
@@ -187,4 +189,28 @@ app.post("/update-userpantry", (req, res) => {
   res.json({
     updatedPantry: true
   });
+});
+
+app.post("/delete-all-pantry", (req, res) => {
+  console.log(routeInfo("POST /delete-all-pantry"));
+  let user_id = req.session.user.id;
+  deleteAllFromUserPantry(user_id)
+    .then(data => {
+      console.log("DB RETURN DELETe ALL PANTRY", data);
+    })
+    .catch(e => {
+      console.log(err("error in delete all from pantry:", e));
+    });
+});
+
+app.post("/delete-all-shopping", (req, res) => {
+  console.log(routeInfo("POST /delete-all-shopping"));
+  let user_id = req.session.user.id;
+  deleteAllFromShoppingList(user_id)
+    .then(data => {
+      console.log("DB RETURN DELETe ALL SHOPPING", data);
+    })
+    .catch(e => {
+      console.log(err("error in delete all from pantry:", e));
+    });
 });

@@ -119,18 +119,18 @@ exports.deleteItemFromUserPantry = (user_id, item_id) => {
   );
 };
 
-exports.deleteAllItemsFromShoppingList = user_id => {
-  return (
-    db.query(`DELETE from userpantry
-        WHERE (account_id=$1 AND on_shopping_List=true`),
+exports.deleteAllFromShoppingList = user_id => {
+  return db.query(
+    `DELETE from userpantry
+        WHERE (account_id=$1 AND on_shopping_list=true)`,
     [user_id]
   );
 };
 
-exports.deleteAllItemsFromUserPantry = user_id => {
-  return (
-    db.query(`DELETE from userpantry
-            WHERE (account_id=$1 AND on_shopping_List=false`),
+exports.deleteAllFromUserPantry = user_id => {
+  return db.query(
+    `DELETE from userpantry
+            WHERE (account_id=$1 AND on_shopping_list=false)`,
     [user_id]
   );
 };

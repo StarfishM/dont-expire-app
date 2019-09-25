@@ -4,8 +4,8 @@ import {
   deleteFromItems,
   getUserItems,
   addAllItemsFromShoppingToPantry,
-  deleteFromShoppingList,
-  deleteFromPantryList
+  deleteAllFromShoppingList,
+  deleteAllFromPantryList
 } from "../actions";
 import ItemDetailedView from "./ItemDetailedView";
 // import axios from "../axios";
@@ -124,15 +124,15 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
           {onShoppingList && (
             <div>
               <button onClick={addAll}>bought all items</button>
-              <button onClick={() => dispatch(deleteFromShoppingList())}>
+              <button onClick={() => dispatch(deleteAllFromShoppingList())}>
                 remove all
               </button>
             </div>
           )}
           {!onShoppingList && (
             <div>
-              <button onClick={() => dispatch(deleteFromPantryList())}>
-                remove all
+              <button onClick={() => dispatch(deleteAllFromPantryList())}>
+                remove all from pantry
               </button>
             </div>
           )}
