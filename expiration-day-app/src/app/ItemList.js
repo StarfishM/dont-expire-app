@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteFromItems,
   getUserItems,
-  addAllItemsFromShoppingToPantry
+  addAllItemsFromShoppingToPantry,
+  deleteFromShoppingList,
+  deleteFromPantryList
 } from "../actions";
 import ItemDetailedView from "./ItemDetailedView";
 // import axios from "../axios";
@@ -80,6 +82,12 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     state =>
       state.items && state.items.filter(elem => elem.on_shopping_list === true)
   );
+  const addAll = e => {
+    e.preventDefault();
+    dispatch(addAllItemsFromShoppingToPantry(shoppingItems));
+    dispatch(getUserItems());
+  };
+
   console.log("shoppingItems", shoppingItems);
 
   return (
@@ -115,14 +123,17 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
             })}
           {onShoppingList && (
             <div>
-              <button
-                onClick={e =>
-                  dispatch(addAllItemsFromShoppingToPantry(shoppingItems))
-                }
-              >
-                bought all items
+              <button onClick={addAll}>bought all items</button>
+              <button onClick={() => dispatch(deleteFromShoppingList())}>
+                remove all
               </button>
-              <button>remove all items</button>
+            </div>
+          )}
+          {!onShoppingList && (
+            <div>
+              <button onClick={() => dispatch(deleteFromPantryList())}>
+                remove all
+              </button>
             </div>
           )}
           {itemDetailShow && (

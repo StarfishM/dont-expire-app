@@ -7,7 +7,8 @@ const {
   getUsersPantryAndShoppingItems,
   deleteItemFromUserPantry,
   getStandardProducts,
-  updateItemInUserPantry
+  updateItemInUserPantry,
+  addAllItemsFromShoppingToPantry
 } = require("../utils/db");
 const chalk = require("chalk");
 const moment = require("moment");
@@ -92,9 +93,42 @@ app.post("/add-to-pantry/:item", (req, res) => {
 app.post("/add-all-to-pantry", (req, res) => {
   console.log(routeInfo("POST /add-all-to-pantry"));
   console.log("#########req.body.shoppingItemsArr", req.body.shoppingItemsArr);
-  res.json({
-    success: true
+  let shoppingItemsArr = req.body.shoppingItemsArr;
+  let arrayOfPromises = [];
+  for (let i = 0; i < shoppingItemsArr.length; i++) {
+    shoppingItemsArr[
+      i
+    ].expires_after_date_bought = calculateDefaultExpirationDate(
+      shoppingItemsArr[i].expires_after_date_bought
+    );
+  }
+  shoppingItemsArr.forEach(item => {
+    console.log("item.account_id", item.account_id);
+    console.log("item.id", item.id);
+    console.log(
+      "item.expires_after_date_bought",
+      item.expires_after_date_bought
+    );
+    arrayOfPromises.push(
+      addAllItemsFromShoppingToPantry(
+        item.id,
+        item.expires_after_date_bought
+      ).then(data => {
+        console.log(dbInfo("DATA in addItemToPantry forEach", data));
+      })
+    );
+    console.log("array of Promises:", arrayOfPromises);
+    return Promise.all(arrayOfPromises)
+      .then(() => {})
+      .catch(e => {
+        console.log(err("Error in addItemtoPantra for each", e));
+      });
   });
+  // console.log("****shoppingItemsArray", shoppingItemsArr);
+
+  // res.json({
+  //   success: true
+  // });
 });
 
 app.post("/add-to-list/:item", (req, res) => {

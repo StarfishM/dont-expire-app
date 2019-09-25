@@ -70,10 +70,14 @@ exports.addItemtoPantry = (user_id, item_id, expires) => {
     .catch(err => console.log("Error in DB query addItemToPantry:", err));
 };
 
-exports.addAllItemsFromShoppingToPantry = (user_id, expires) => {
-  return db.query(`UPDATE userpantry
-      SET on_shopping_list=false, expires_after_date_bought=$3
-      WHERE user_id=$2`);
+exports.addAllItemsFromShoppingToPantry = (item_id, expires) => {
+  return db.query(
+    `UPDATE userpantry
+      SET on_shopping_list=false, expires_after_date_bought=$1
+      WHERE id=$2
+      RETURNING *`,
+    [expires, item_id]
+  );
 };
 
 exports.addItemToShoppingList = (user_id, item_id) => {
@@ -112,6 +116,22 @@ exports.deleteItemFromUserPantry = (user_id, item_id) => {
     `DELETE from userpantry
         WHERE (account_id=$1 AND id=$2)`,
     [user_id, item_id]
+  );
+};
+
+exports.deleteAllItemsFromShoppingList = user_id => {
+  return (
+    db.query(`DELETE from userpantry
+        WHERE (account_id=$1 AND on_shopping_List=true`),
+    [user_id]
+  );
+};
+
+exports.deleteAllItemsFromUserPantry = user_id => {
+  return (
+    db.query(`DELETE from userpantry
+            WHERE (account_id=$1 AND on_shopping_List=false`),
+    [user_id]
   );
 };
 
