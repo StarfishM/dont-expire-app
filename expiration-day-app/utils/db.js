@@ -147,7 +147,7 @@ exports.getExpiryItems = (userId, expire) => {
   return db
     .query(
       `SELECT * FROM userpantry
-        WHERE (account_id=$1 AND expires_after_date_bought =$2)`,
+        WHERE (account_id=$1 AND expires_after_date_bought <=$2)`,
       [userId, expire]
     )
     .then(({ rows }) => {

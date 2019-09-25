@@ -21,31 +21,6 @@ app.get("/useritems", (req, res) => {
   console.log(routeInfo("Running GET /useritems"));
   getUsersPantryAndShoppingItems(req.session.user.id)
     .then(data => {
-      // console.log(dbInfo("return from db", data));
-      // for (let i = 0; i < data.length; i++) {
-      //   if (!data[i].on_shopping_list) {
-      //     let purchaseDate = moment(data[i].created_at)
-      //       .utc()
-      //       .format("YYYY-MM-DD");
-      //     data[i].date_bought = moment(data[i].date_bought)
-      //       .utc()
-      //       .format("YYYY-MM-DD");
-      //     data[i].expires_after_date_bought = moment(
-      //       data[i].expires_after_date_bought
-      //     )
-      //       .utc()
-      //       .format("YYYY-MM-DD");
-      //     // console.log("****PURCHASE DATE****", purchaseDate);
-      //     data[i].expires_at = calculateDefaultExpirationDate(
-      //       purchaseDate,
-      //       data[i].expiry_date
-      //     );
-      //     // console.log("data.expires_at", data.expires_at);
-      //     // console.log("days until expiry", data[i].expiry_date);
-      //     // console.log("data after expiry calculation:", data);
-      //   }
-      // }
-
       res.json({
         success: true,
         data

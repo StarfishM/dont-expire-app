@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { deleteFromItems, getExpiryItems } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
+import { MainContent, ListItem } from "./ItemList";
 
 export default function ExpiryList() {
   const [showExpiryList, setShowExpiryList] = useState({
@@ -60,12 +61,19 @@ export default function ExpiryList() {
       />
 
       {showExpiryList.show && (
-        <section>
+        <MainContent>
           <h1>I AM THE EXPIRY LIST</h1>
-          <h1>LIST</h1>
-        </section>
+          {expiryItems &&
+            expiryItems.map((item, index) => {
+              return (
+                <ListItem key={index}>
+                  <p>{item.name}</p>
+                </ListItem>
+              );
+            })}
+        </MainContent>
       )}
-      {expiryItems.length > 0 && <Notify> {expiryItems.length + 1}</Notify>}
+      {expiryItems.length > 0 && <Notify> {expiryItems.length}</Notify>}
     </section>
   );
 }

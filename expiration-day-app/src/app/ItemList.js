@@ -5,6 +5,22 @@ import ItemDetailedView from "./ItemDetailedView";
 // import axios from "../axios";
 import styled from "styled-components";
 
+export const MainContent = styled.div`
+  grid-area: "main";
+  width: 50vw;
+  height: 90vh;
+  z-index: 2;
+  position: absolute;
+  border: 2px solid red;
+  background: lightyellow;
+  right: 0px;
+  top: 15vh;
+`;
+export const ListItem = styled.div`
+  display: flex;
+  padding-right: 10px;
+`;
+
 export default function ItemList({ img_url, disp_function, onShoppingList }) {
   const [listItemsShow, setListItemsShow] = useState();
   const [itemDetailShow, setItemDetailShow] = useState();
@@ -40,23 +56,6 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     width: 45px;
     height: 45px;
     grid-area: "nav";
-  `;
-
-  const MainContent = styled.div`
-    grid-area: "main";
-    width: 100vw;
-    height: 90vh;
-    z-index: 2;
-    position: absolute;
-    border: 2px solid red;
-    background: lightyellow;
-    left: 0px;
-    top: 15vh;
-  `;
-
-  const ListItem = styled.div`
-    display: flex;
-    padding-right: 10px;
   `;
 
   const Icon = styled.img`
@@ -109,7 +108,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
                 </ListItem>
               );
             })}
-          {onShoppingList.length > 0 && (
+          {onShoppingList && (
             <div>
               <button>bought all items</button>
               <button>remove all items</button>
@@ -119,6 +118,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
             <ItemDetailedView
               itemInFocus={itemInFocus}
               addItemInfo={addItemInfo}
+              onShoppingList={onShoppingList}
             />
           )}
         </MainContent>

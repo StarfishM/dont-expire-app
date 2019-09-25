@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { getUserItems } from "../actions";
 import { useDispatch } from "react-redux";
 
-export default function ItemDetailedView({ itemInFocus, addItemInfo }) {
+export default function ItemDetailedView({
+  itemInFocus,
+  addItemInfo,
+  onShoppingList
+}) {
   const dispatch = useDispatch();
   let curr = new Date();
   let expires = new Date();
@@ -75,24 +79,30 @@ export default function ItemDetailedView({ itemInFocus, addItemInfo }) {
           required="required"
         />
       </AmountContainer>
-      <label htmlFor="purchaseDate">Select day of purchase</label>
-      <input
-        onChange={handleChange}
-        type="date"
-        name="purchaseDate"
-        defaultValue={date}
-        value={updateItem.purchaseDate}
-      />
-      <label htmlFor="expiryDate">
-        Please refine or leave as is, if you want to use default expiry value
-      </label>
-      <input
-        onChange={handleChange}
-        type="date"
-        name="expiryDate"
-        defaultValue={expiryDate}
-        value={updateItem.expiryDate}
-      />
+      {!onShoppingList && (
+        <div>
+          <label htmlFor="purchaseDate">Select day of purchase</label>
+          <input
+            onChange={handleChange}
+            type="date"
+            name="purchaseDate"
+            defaultValue={date}
+            value={updateItem.purchaseDate}
+          />
+          <label htmlFor="expiryDate">
+            Please refine or leave as is, if you want to use default expiry
+            value
+          </label>
+          <input
+            onChange={handleChange}
+            type="date"
+            name="expiryDate"
+            defaultValue={expiryDate}
+            value={updateItem.expiryDate}
+          />
+        </div>
+      )}
+
       <button onClick={e => updateUserItemTbl(e)}>update item info</button>
       <button onClick={e => cancel(e)}>cancel</button>
     </ProductDetailForm>
