@@ -6,7 +6,6 @@ import {
   addToShoppingList,
   removeFromStandardItems
 } from "../actions";
-import { ListItem } from "./ItemList";
 import styled from "styled-components";
 
 export default function ItemTinder({ itemId }) {
@@ -24,6 +23,7 @@ export default function ItemTinder({ itemId }) {
   `;
   useEffect(() => {
     dispatch(getInitialStandardProducts());
+
     console.log("***Standard Items:", standardItems);
   }, []);
 

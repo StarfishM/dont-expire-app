@@ -18,7 +18,9 @@ app.post("/login", (req, res) => {
           if (match === true) {
             req.session.user = {};
             req.session.user.id = info.id;
+            req.session.user.first = info.first;
             res.json({
+              first: info.first,
               success: true
             });
           } else {

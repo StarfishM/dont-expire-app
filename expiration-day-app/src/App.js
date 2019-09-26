@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUserItems, getExpiryItems } from "./actions";
+import { getUserItems } from "./actions";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import HelloWorldText from "./helloWorld";
-import Calendar from "react-calendar";
+import ExpiryCalendar from "./app/calendar";
 import ItemList from "./app/ItemList";
 import SearchItems from "./app/searchItems";
 import ItemTinder from "./app/ItemTinder";
@@ -24,6 +24,8 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(getUserItems());
+
+    console.log("APP MOUNTED");
   }
 
   render() {
@@ -32,13 +34,13 @@ class App extends Component {
         <div className="main-grid">
           <BrowserRouter>
             <div className="nav-bar">
-              <HelloWorldText name="Merle" />
+              <HelloWorldText name={this.props.first} />
               <a href="/logout">Logout</a>
               <Link to="/search">
                 <img className="icon" src="search_icon.png" alt="" />
               </Link>
               <Link to="/item-Tinder">
-                <img className="icon" src="./item-tinder" alt="" />
+                <img className="icon" src="./item-tinder.png" alt="" />
               </Link>
               <ExpiryList />
               <ItemList
@@ -55,7 +57,7 @@ class App extends Component {
             <Route path="/search" component={SearchItems} />
             <Route
               path="/calendar"
-              component={Calendar}
+              component={ExpiryCalendar}
               onChange={this.onChange}
               value={this.state.date}
             />
@@ -69,7 +71,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items
+    items: state.items,
+    first: state.first
   };
 };
 

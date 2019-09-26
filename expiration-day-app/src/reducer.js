@@ -80,24 +80,26 @@ export default function reducer(
     console.log("getExpiryItems is running in reducer", action);
     state = {
       ...state,
-      expiryItems: action.expiryItems.data
+      expiryItems: action.expiryItems.data,
+      first: action.expiryItems.first
     };
   }
   if (action.type === "ADD_ALL_ITEMS_TO_PANTRY") {
     console.log("add all items in reducer", action);
+    state = {
+      ...state,
+      items: state.items.map(item =>
+        item.on_shopping_list
+          ? { ...item, on_shopping_list: false }
+          : { ...item }
+      )
+    };
   }
 
   if (action.type === "DELETE_ALL_FROM_SHOPPING") {
     state = {
       ...state,
-      items: state.items.filter(item => {
-        if (!item.onShoppingList) {
-          console.log("item to be returned in delete from shopping", item);
-          return {
-            ...item
-          };
-        }
-      })
+      items: state.items.filter(item => !item.on_shopping_list)
     };
   }
   if (action.type === "DELETE_ALL_FROM_PANTRY") {
@@ -105,13 +107,7 @@ export default function reducer(
 
     state = {
       ...state,
-      items: state.items.filter(item => {
-        if (item.onShoppingList) {
-          return {
-            ...item
-          };
-        }
-      })
+      items: state.items.filter(item => item.on_shopping_list)
     };
   }
 

@@ -1,11 +1,8 @@
 const { app } = require("../app");
-const { getExpiryItems, deleteItemFromUserPantry } = require("../utils/db");
+const { getExpiryItems } = require("../utils/db");
 const chalk = require("chalk");
 const moment = require("moment");
-const {
-  calculateExpirationDate,
-  calculateCompareValueForDB
-} = require("./expirationcalc");
+const { calculateCompareValueForDB } = require("./expirationcalc");
 
 let err = chalk.bold.red;
 let routeInfo = chalk.bold.blue;
@@ -14,6 +11,7 @@ let dbInfo = chalk.bold.yellow;
 app.get("/get-expiry-items", (req, res) => {
   console.log(routeInfo("GET /get-expiry-items running"));
   let userId = req.session.user.id;
+  let first = req.session.user.first;
   let compareValue = calculateCompareValueForDB();
   console.log("****compare Value", compareValue);
   getExpiryItems(userId, compareValue)
@@ -25,7 +23,8 @@ app.get("/get-expiry-items", (req, res) => {
         ).fromNow();
       }
       res.json({
-        data
+        data,
+        first: first
       });
     })
     .catch(error => {

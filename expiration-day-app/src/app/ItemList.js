@@ -85,8 +85,6 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
     dispatch(getUserItems());
   };
 
-  console.log("shoppingItems", shoppingItems);
-
   return (
     <div>
       <NavbarItem

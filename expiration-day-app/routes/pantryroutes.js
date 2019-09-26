@@ -196,7 +196,10 @@ app.post("/delete-all-pantry", (req, res) => {
   let user_id = req.session.user.id;
   deleteAllFromUserPantry(user_id)
     .then(data => {
-      console.log("DB RETURN DELETe ALL PANTRY", data);
+      res.json({
+        data,
+        success: true
+      });
     })
     .catch(e => {
       console.log(err("error in delete all from pantry:", e));
@@ -208,7 +211,10 @@ app.post("/delete-all-shopping", (req, res) => {
   let user_id = req.session.user.id;
   deleteAllFromShoppingList(user_id)
     .then(data => {
-      console.log("DB RETURN DELETe ALL SHOPPING", data);
+      res.json({
+        data,
+        success: true
+      });
     })
     .catch(e => {
       console.log(err("error in delete all from pantry:", e));
