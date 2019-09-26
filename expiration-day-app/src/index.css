@@ -1,11 +1,13 @@
 body {
+  font-family: "Anton", sans-serif;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: pink;
+  background: papayawhip;
+  /* margin: 1%; */
 }
 
 code {
@@ -17,12 +19,12 @@ img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  object-fit: cover;
+  /* object-fit: cover; */
 }
 
 .main-grid {
   display: grid;
-  grid-template-columns: 1;
+  grid-template-columns: 1fr;
   grid-template-areas:
     "nav"
     "main"
@@ -34,25 +36,13 @@ img {
   grid-area: "nav";
   display: flex;
   justify-content: flex-end;
-  width: 100vw;
+  align-items: baseline;
+  width: 100%;
 }
 .main-content {
   grid-area: "main";
-}
-.nav-bar * {
-  padding-right: 10px;
-}
-
-.icon {
-  width: 45px;
-  height: 45px;
-  grid-area: "nav";
-}
-
-.icon img {
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
+  padding: 2%;
+  background: #ffcb77;
 }
 
 .react-calendar {
@@ -60,4 +50,34 @@ img {
   position: absolute;
   top: 30vh;
   left: 20%;
+}
+
+.flex-start-self {
+  left: 20px;
+  position: absolute;
+}
+
+.dashboard {
+  color: papayawhip;
+  z-index: 2;
+  opacity: 1;
+}
+
+.transparent-box {
+  width: 45vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.transparent-box:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.search-result {
+  margin-bottom: 10px;
 }

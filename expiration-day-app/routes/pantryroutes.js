@@ -14,24 +14,48 @@ const {
 } = require("../utils/db");
 const chalk = require("chalk");
 const moment = require("moment");
-const { calculateDefaultExpirationDate } = require("./expirationcalc");
+const {
+  calculateDefaultExpirationDate,
+  calculateOrangeZone,
+  calculateCompareValueForDB
+} = require("./expirationcalc");
 
 let err = chalk.bold.red;
 let routeInfo = chalk.bold.blue;
 let dbInfo = chalk.bold.yellow;
+
+let orangeZone = calculateOrangeZone();
+let redZone = calculateCompareValueForDB();
 
 app.get("/useritems", (req, res) => {
   console.log(routeInfo("Running GET /useritems"));
   getUsersPantryAndShoppingItems(req.session.user.id)
     .then(data => {
       console.log(dbInfo("getUsersPantryAndShoppingItems", data));
+      console.log("ORANGEZONE DATE", orangeZone);
+      console.log("REDZONE DATE", redZone);
       for (let i = 0; i < data.length; i++) {
         if (!data[i].on_shopping_list) {
+          if (data[i].expires_after_date_bought <= redZone) {
+            data[i].color = "red";
+          } else if (
+            data[i].expires_after_date_bought <= orangeZone &&
+            data[i].expires_after_date_bought > redZone
+          ) {
+            data[i].color = "orange";
+          } else {
+            data[i].color = "green";
+          }
           data[i].expires_after_date_bought = moment(
             data[i].expires_after_date_bought
           ).format("YYYY-MM-DD");
+          console.log(
+            "COMPARE DATE DB EXPIRES AFTER DATE BOUGHT",
+            data[i].expires_after_date_bought
+          );
         }
       }
+
       res.json({
         success: true,
         data

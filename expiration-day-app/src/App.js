@@ -8,6 +8,13 @@ import ItemList from "./app/ItemList";
 import SearchItems from "./app/searchItems";
 import ItemTinder from "./app/ItemTinder";
 import ExpiryList from "./app/ExpiryList";
+import {
+  NavbarItem,
+  MainContentGrid,
+  BoxOne,
+  BoxTwo,
+  BoxThree
+} from "./StandardStyles";
 // import styled from "styled-components";
 
 class App extends Component {
@@ -35,12 +42,15 @@ class App extends Component {
           <BrowserRouter>
             <div className="nav-bar">
               <HelloWorldText name={this.props.first} />
-              <a href="/logout">Logout</a>
+              <a href="/logout">
+                <NavbarItem src="./logout.png" alt="" />
+              </a>
+
               <Link to="/search">
-                <img className="icon" src="search_icon.png" alt="" />
+                <NavbarItem src="search_icon.png" alt="" />
               </Link>
               <Link to="/item-Tinder">
-                <img className="icon" src="./item-tinder.png" alt="" />
+                <NavbarItem src="./item-tinder.png" alt="" />
               </Link>
               <ExpiryList />
               <ItemList
@@ -62,6 +72,29 @@ class App extends Component {
               value={this.state.date}
             />
             <Route path="/item-tinder" component={ItemTinder} />
+            <Route
+              exact
+              path="/"
+              render={() => {
+                return (
+                  <MainContentGrid>
+                    <BoxOne>
+                      <Link to="/search">
+                        <div className="transparent-box">
+                          <h2 className="dashboard">search food database</h2>
+                        </div>
+                      </Link>
+                    </BoxOne>
+                    <BoxTwo></BoxTwo>
+                    <BoxThree>
+                      <div className="transparent-box">
+                        <h2 className="dashboard">calendar coming soon...</h2>
+                      </div>
+                    </BoxThree>
+                  </MainContentGrid>
+                );
+              }}
+            />
           </BrowserRouter>
         </div>
       </React.Fragment>

@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { deleteFromItems, getExpiryItems } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { MainContent, ListItem } from "./ItemList";
+import { MainContent } from "./ItemList";
+import { ClickablePTags, ListItem, NavbarItem } from "../StandardStyles";
 
 export default function ExpiryList() {
   const [showExpiryList, setShowExpiryList] = useState({
     expiryItems: [],
     show: false
+  });
+  const [seen, setSeen] = useState({
+    seen: false
   });
   const dispatch = useDispatch();
 
@@ -35,12 +39,6 @@ export default function ExpiryList() {
 
   const expiryItems = useSelector(state => state.expiryItems);
 
-  const NavbarItem = styled.img`
-    width: 45px;
-    height: 45px;
-    grid-area: "nav";
-    object-fit: scale-down;
-  `;
   const Notify = styled.div`
     height: 20px;
     width: 20px;
@@ -72,13 +70,17 @@ export default function ExpiryList() {
                 <ListItem key={index}>
                   <p>{item.name}</p>
                   <p>{item.expires_after_date_bought}</p>
-                  <p onClick={() => delteItem(item.id)}>x</p>
+                  <ClickablePTags onClick={() => delteItem(item.id)}>
+                    x
+                  </ClickablePTags>
                 </ListItem>
               );
             })}
         </MainContent>
       )}
-      {expiryItems.length > 0 && <Notify> {expiryItems.length}</Notify>}
+      {expiryItems && expiryItems.length > 0 && (
+        <Notify> {expiryItems.length}</Notify>
+      )}
     </section>
   );
 }

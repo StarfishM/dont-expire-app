@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getInitialStandardProducts,
@@ -7,6 +7,7 @@ import {
   removeFromStandardItems
 } from "../actions";
 import styled from "styled-components";
+import { IconItemTinder } from "../StandardStyles";
 
 export default function ItemTinder({ itemId }) {
   // const [listItemsShow, setListItemsShow] = useState();
@@ -20,51 +21,43 @@ export default function ItemTinder({ itemId }) {
   const Wrapper = styled.section`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
+    width: 32vw;
   `;
   useEffect(() => {
     dispatch(getInitialStandardProducts());
-
-    console.log("***Standard Items:", standardItems);
   }, []);
 
-  const MainContent = styled.div`
+  const MainContentItemTinder = styled.div`
     grid-area: "main";
-    width: 100vw;
-    height: 90vh;
+    width: 100%;
+    min-height: 81vh;
     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
-    background: lightyellow;
+    background: #ffcb77;
     left: 0px;
     top: 15vh;
   `;
   const Card = styled.div`
-    height: 90vh;
+    min-height: 81vh;
     width: 45vw;
-    background: lightgreen;
+    background: #ffeac9;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-around;
     align-items: center;
   `;
   const ProductImage = styled.img`
-    height: 80vh;
-    width: 40vw;
-    border-radius: 40px;
-    object-fit: contain;
-    padding: 10px;
-  `;
-  const Icon = styled.img`
-    display: flex;
-    height: 30px;
-    width: 10vw;
-    object-fit: contain;
-    padding: 10px;
-    border-radius: 5px;
-    border: solid 1px black;
-    cursor: pointer;
+    height: 70vh;
+    width: 30vw;
+    border-radius: 30px;
+    object-fit: cover;
+    margin: 20px;
+    box-shadow: 0px -1px 15px 0px rgba(87, 71, 4, 0.43);
+    -webkit-box-shadow: 0px -1px 15px 0px rgba(87, 71, 4, 0.43);
+    -moz-box-shadow: 0px -1px 15px 0px rgba(87, 71, 4, 0.43);
   `;
 
   if (!standardItems) {
@@ -75,17 +68,18 @@ export default function ItemTinder({ itemId }) {
   //<ProductImage src={standardItems[0].img_url} />
 
   return (
-    <MainContent>
+    <MainContentItemTinder>
+      {standardItems.length === 0 && <h3>Out of standard items :( ...</h3>}
       {standardItems.length > 0 && (
         <Card>
           <ProductImage src={standardItems[0].img_url} />
           <Wrapper>
-            <Icon
+            <IconItemTinder
               src="./shopping_card_icon.png"
               alt=""
               onClick={e => dispatch(addToShoppingList(standardItems[0].id))}
-            ></Icon>
-            <Icon
+            ></IconItemTinder>
+            <IconItemTinder
               src="./home_icon.png"
               alt=""
               onClick={e =>
@@ -96,17 +90,17 @@ export default function ItemTinder({ itemId }) {
                   )
                 )
               }
-            ></Icon>
-            <Icon
+            ></IconItemTinder>
+            <IconItemTinder
               src="./no_icon.png"
               alt=""
               onClick={e =>
                 dispatch(removeFromStandardItems(standardItems[0].id))
               }
-            ></Icon>
+            ></IconItemTinder>
           </Wrapper>
         </Card>
       )}
-    </MainContent>
+    </MainContentItemTinder>
   ); //end return
 } //closingtag function

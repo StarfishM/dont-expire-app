@@ -9,29 +9,40 @@ import {
 } from "../actions";
 import ItemDetailedView from "./ItemDetailedView";
 import styled from "styled-components";
+import {
+  Button,
+  ClickablePTags,
+  List,
+  ListItem,
+  NavbarItem
+} from "../StandardStyles";
 
 export const MainContent = styled.div`
   grid-area: "main";
   width: 50vw;
-  height: 90vh;
+  min-height: 81vh;
   z-index: 2;
   position: absolute;
-  border: 2px solid red;
-  background: lightyellow;
+  background: #ffcb77;
   right: 0px;
-  top: 15vh;
-`;
-export const ListItem = styled.div`
-  display: flex;
-  padding-right: 10px;
+  top: 10vh;
 `;
 
 export default function ItemList({ img_url, disp_function, onShoppingList }) {
   const [listItemsShow, setListItemsShow] = useState();
   const [itemDetailShow, setItemDetailShow] = useState();
   const [itemInFocus, setItemInFocus] = useState();
+  const [showExpiryDate, setShowExpiryDate] = useState();
 
   const dispatch = useDispatch();
+
+  const toggleHover = () => {
+    if (!showExpiryDate) {
+      setShowExpiryDate(true);
+    } else if (showExpiryDate) {
+      setShowExpiryDate(false);
+    }
+  };
   const getListItems = () => {
     if (!listItemsShow) {
       setListItemsShow(true);
@@ -55,15 +66,17 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
       setItemInFocus(item);
     }
   };
-  const NavbarItem = styled.img`
-    width: 45px;
-    height: 45px;
-    grid-area: "nav";
-  `;
 
-  const Icon = styled.img`
+  const ExpiredIcon = styled.img`
     width: 20px;
     height: 20px;
+    background: ${props => props.backgroundColor};
+    margin-top: 16px;
+  `;
+
+  const HoverInfo = styled.p`
+    position: absolute;
+    margin-top: 5px;
   `;
 
   useEffect(() => {
@@ -93,50 +106,73 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
         className="icon"
         src={img_url}
       />
+
       {listItemsShow && (
         <MainContent className="main-content">
-          <h4>I WILL SHOW A LIST OF ITEMS</h4>
+          {onShoppingList ? <h4>To Buy</h4> : <h4>Items in Pantry</h4>}
 
-          {listItems &&
-            listItems.map((item, index) => {
-              return (
-                <ListItem key={index}>
-                  <p onClick={() => addItemInfo(item)}> {item.name}</p>
-                  <p> {item.amount}</p>
-                  {!onShoppingList && (
-                    <div>
-                      <p>Expires: {item.expires_after_date_bought} </p>
-                      <Icon src="./expired_icon.png" alt="" />
-                    </div>
-                  )}
-                  {item.expires_at && (
-                    <p> Default Expiration Date:{item.expires_at}</p>
-                  )}
-                  <p onClick={e => dispatch(deleteFromItems(item.id))}> x</p>
-                </ListItem>
-              );
-            })}
+          <List>
+            {listItems &&
+              listItems.map((item, index) => {
+                return (
+                  <ListItem key={index}>
+                    <p> {item.amount}</p>
+                    <ClickablePTags onClick={() => addItemInfo(item)}>
+                      {" "}
+                      {item.name}
+                    </ClickablePTags>
+
+                    {!onShoppingList && (
+                      <section>
+                        <div>
+                          <ExpiredIcon
+                            src="./expired_icon.png"
+                            alt=""
+                            backgroundColor={item.color}
+                            onMouseEnter={toggleHover}
+                            onMouseLeave={toggleHover}
+                          />
+                        </div>
+                        {showExpiryDate && (
+                          <HoverInfo>
+                            {item.expires_after_date_bought}{" "}
+                          </HoverInfo>
+                        )}
+                      </section>
+                    )}
+                    <ClickablePTags
+                      onClick={e => dispatch(deleteFromItems(item.id))}
+                    >
+                      {" "}
+                      x
+                    </ClickablePTags>
+                  </ListItem>
+                );
+              })}
+            {itemDetailShow && (
+              <ItemDetailedView
+                itemInFocus={itemInFocus}
+                addItemInfo={addItemInfo}
+                onShoppingList={onShoppingList}
+              />
+            )}
+          </List>
           {onShoppingList && (
-            <div>
-              <button onClick={addAll}>bought all items</button>
-              <button onClick={() => dispatch(deleteAllFromShoppingList())}>
+            <ListItem>
+              <Button primary onClick={addAll}>
+                bought all items
+              </Button>
+              <Button onClick={() => dispatch(deleteAllFromShoppingList())}>
                 remove all
-              </button>
-            </div>
+              </Button>
+            </ListItem>
           )}
           {!onShoppingList && (
             <div>
-              <button onClick={() => dispatch(deleteAllFromPantryList())}>
+              <Button onClick={() => dispatch(deleteAllFromPantryList())}>
                 remove all from pantry
-              </button>
+              </Button>
             </div>
-          )}
-          {itemDetailShow && (
-            <ItemDetailedView
-              itemInFocus={itemInFocus}
-              addItemInfo={addItemInfo}
-              onShoppingList={onShoppingList}
-            />
           )}
         </MainContent>
       )}

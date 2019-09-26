@@ -105,7 +105,6 @@ exports.getUsersPantryAndShoppingItems = id => {
       [id]
     )
     .then(({ rows }) => {
-      console.log("rows getUsersPantryAndShoppingItems", rows);
       return rows;
     })
     .catch(err => console.log("Error in DB query getUsersPantry:", err));
@@ -142,7 +141,6 @@ exports.getStandardProducts = () => {
         WHERE regular_item=true`
     )
     .then(({ rows }) => {
-      console.log("rows", rows);
       return rows;
     })
     .catch(err => console.log("Error in DB query getStandardProducts:", err));
@@ -178,7 +176,6 @@ exports.getExpiryItems = (userId, expire) => {
       [userId, expire]
     )
     .then(({ rows }) => {
-      console.log("rows in getExpiryItems:", rows);
       return rows;
     })
     .catch(err => console.log("Error in DB getExpiryItems:", err));

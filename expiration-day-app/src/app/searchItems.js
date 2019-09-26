@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToPantry, addToShoppingList } from "../actions";
 import axios from "../axios";
 import styled from "styled-components";
@@ -7,9 +7,22 @@ import styled from "styled-components";
 // import { Link } from "react-router-dom";
 
 const MainContent = styled.div`
+  padding-left: 20px;
   grid-area: "main";
   background: lightyellow;
   width: 100vw;
+`;
+
+const ImgSearch = styled.img`
+  object-fit: cover;
+`;
+
+const ClickIcon = styled.img`
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 `;
 export default function SearchItems() {
   const [searchInput, setSearchInput] = useState();
@@ -38,7 +51,6 @@ export default function SearchItems() {
   return (
     <div>
       <MainContent>
-        <h2>ADD ITEMS TO PANTRY/LIST SEARCH ITEMS COMPONENT</h2>
         <input
           name="finditem"
           placeholder="search items"
@@ -55,14 +67,20 @@ export default function SearchItems() {
             {searchItemsList &&
               searchItemsList.map(item => (
                 <div className="search-result" key={item.id}>
-                  <img src={item.img_url} alt={item.name} />
+                  <ImgSearch
+                    src={
+                      item.img_url ||
+                      "https://images.unsplash.com/photo-1566273873209-5ceccc0d1514?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
+                    }
+                    alt={item.name}
+                  />
                   {item.name}
-                  <img
+                  <ClickIcon
                     onClick={e => dispatch(addToShoppingList(item.id))}
                     src="./shopping_card_icon.png"
                     alt={item.name}
                   />
-                  <img
+                  <ClickIcon
                     onClick={e =>
                       dispatch(addToPantry(item.id, item.expiry_date))
                     }
