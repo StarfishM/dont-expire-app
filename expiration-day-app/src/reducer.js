@@ -85,7 +85,7 @@ export default function reducer(
     };
   }
   if (action.type === "ADD_ALL_ITEMS_TO_PANTRY") {
-    console.log("add all items in reducer", action);
+    console.log("4");
     state = {
       ...state,
       items: state.items.map(item =>

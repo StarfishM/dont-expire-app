@@ -5,8 +5,8 @@ export const MainContentGrid = styled.div`
   padding: 1%;
   grid-gap: 30px;
   grid-template-columns: 48% 48%;
-  grid-template-rows: 48% 48%;
-  grid-area: "box-one box-two" "box-three box-two";
+  grid-template-rows: 20% 68% 10%;
+  /* grid-template-areas: "box-two" "box-one box-three"; */
 `;
 
 export const WelcomeGrid = styled.div`
@@ -39,8 +39,9 @@ export const Right = styled.div`
 `;
 
 export const BoxOne = styled.div`
-  grid-area: "box-one";
-
+  /* grid-area: "box-one"; */
+  grid-row: 2;
+  grid-column: 1;
   /* width: 47vw; */
   background-image: url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80");
   background-size: cover;
@@ -55,21 +56,20 @@ export const BoxOne = styled.div`
 
 export const BoxTwo = styled.div`
   grid-area: "box-two";
-  background-image: url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80");
+  grid-row: 1;
+  grid-column: 1 / span 2;
   display: flex;
-  justify-self: start
   background-size: cover;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  box-shadow: 0px -1px 15px 0px rgba(87, 71, 4, 0.43);
-  -webkit-box-shadow: 0px -1px 15px 0px rgba(87, 71, 4, 0.43);
-  -moz-box-shadow: 0px -1px 15px 0px rgba(87, 71, 4, 0.43);
+  text-align: center;
 `;
 
 export const BoxThree = styled.div`
   grid-area: "box-three";
-  /* width: 45vw; */
+  grid-row: 2;
+  grid-column: 2;
   background-image: url("https://images.unsplash.com/photo-1508239572561-54fae543f43f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1645&q=80");
   display: flex;
   justify-content: center;
@@ -91,6 +91,7 @@ export const Button = styled.button`
   min-height: 35px;
   cursor: pointer;
   margin-top: 20px;
+  font-weight: bold;
 `;
 
 export const ClickablePTags = styled.p`

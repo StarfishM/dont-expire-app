@@ -66,11 +66,11 @@ export function getExpiryItems() {
 }
 
 export function addAllItemsFromShoppingToPantry(shoppingItemsArr) {
-  console.log("running addAllItems", shoppingItemsArr);
+  console.log("2", shoppingItemsArr);
   return axios
     .post("/add-all-to-pantry", { shoppingItemsArr })
     .then(({ data }) => {
-      console.log("****ACTION DATA", data);
+      console.log("3");
       return {
         type: "ADD_ALL_ITEMS_TO_PANTRY"
       };

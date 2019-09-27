@@ -109,3 +109,22 @@ form {
 a {
   color: whitesmoke;
 }
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  overflow: hidden;
+  grid-area: footer;
+  z-index: -3;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #567f5d;
+}
+
+footer * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

@@ -96,9 +96,9 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
       state.items && state.items.filter(elem => elem.on_shopping_list === true)
   );
   const addAll = e => {
+    console.log("1");
     e.preventDefault();
     dispatch(addAllItemsFromShoppingToPantry(shoppingItems));
-    dispatch(getUserItems());
   };
 
   return (

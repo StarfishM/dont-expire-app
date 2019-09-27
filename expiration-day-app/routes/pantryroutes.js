@@ -142,6 +142,9 @@ app.post("/add-all-to-pantry", (req, res) => {
         item.expires_after_date_bought
       ).then(data => {
         console.log(dbInfo("DATA in addItemToPantry forEach", data));
+        res.json({
+          success: true
+        });
       })
     );
     console.log("array of Promises:", arrayOfPromises);

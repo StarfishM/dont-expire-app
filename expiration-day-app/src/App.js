@@ -85,7 +85,13 @@ class App extends Component {
                         </div>
                       </Link>
                     </BoxOne>
-                    <BoxTwo></BoxTwo>
+                    <BoxTwo>
+                      <h1 style={{ color: "#567f5d", fontWeight: "bold" }}>
+                        "The average German wastes 55 kilos of food per year.
+                        <br />
+                        Let's start making that number go down!"
+                      </h1>
+                    </BoxTwo>
                     <BoxThree>
                       <div className="transparent-box">
                         <h2 className="dashboard">calendar coming soon...</h2>
@@ -96,6 +102,11 @@ class App extends Component {
               }}
             />
           </BrowserRouter>
+          <footer className="footer">
+            <p>KGB</p>
+            <p>made with ❤︎ by Merle Fischer</p>
+            <p> @SPICED Academy 2019</p>
+          </footer>
         </div>
       </React.Fragment>
     );
