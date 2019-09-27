@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../axios";
 import { Link } from "react-router-dom";
+import { Right, InputField, Button } from "../StandardStyles";
 
 export default class Register extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ export default class Register extends React.Component {
   render() {
     let error = this.state.error;
     return (
-      <div>
+      <Right>
         {error && (
           <div>
             <h2>
@@ -59,40 +60,43 @@ export default class Register extends React.Component {
         )}
         <form>
           <label htmlFor="first">First Name</label>
-          <input
+          <InputField
             name="first"
             // placeholder="firstname"
             onChange={this.handleChange}
           />
 
           <label htmlFor="last">Last Name</label>
-          <input
+          <InputField
             name="last"
             // placeholder="lastname"
             onChange={this.handleChange}
           />
 
           <label htmlFor="email">E-Mail </label>
-          <input
+          <InputField
             name="email"
             // placeholder="e-m@il"
             onChange={this.handleChange}
           />
 
           <label htmlFor="password"> Password</label>
-          <input
+          <InputField
             type="password"
             name="password"
             // placeholder="password"
             onChange={this.handleChange}
           />
 
-          <button onClick={this.handleSubmit}> Submit </button>
+          <Button primary onClick={this.handleSubmit}>
+            {" "}
+            Submit{" "}
+          </Button>
         </form>
         <p>
           Already signed up? <Link to="/login">Log in</Link>
         </p>
-      </div>
+      </Right>
     );
   }
 }

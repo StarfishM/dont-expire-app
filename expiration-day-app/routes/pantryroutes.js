@@ -103,6 +103,7 @@ app.post("/add-to-pantry/:item", (req, res) => {
   let itemId = req.params.item;
   let userId = req.session.user.id;
   let daysUntilExp = req.body.expiry_date;
+  console.log("******************", daysUntilExp);
   let expires = calculateDefaultExpirationDate(daysUntilExp);
   addItemtoPantry(userId, itemId, expires)
     .then(data => {
@@ -125,7 +126,7 @@ app.post("/add-all-to-pantry", (req, res) => {
     shoppingItemsArr[
       i
     ].expires_after_date_bought = calculateDefaultExpirationDate(
-      shoppingItemsArr[i].expires_after_date_bought
+      shoppingItemsArr[i].expiry_date
     );
   }
   shoppingItemsArr.forEach(item => {

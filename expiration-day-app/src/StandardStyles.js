@@ -1,16 +1,46 @@
 import styled from "styled-components";
 
 export const MainContentGrid = styled.div`
-display:grid;
-padding: 1%;
-grid-gap:30px;
-grid-template-columns:48% 48%
-grid-template-rows: 48% 48%
-grid-area: "box-one box-two"
-        "box-three box-two"`;
+  display: grid;
+  padding: 1%;
+  grid-gap: 30px;
+  grid-template-columns: 48% 48%;
+  grid-template-rows: 48% 48%;
+  grid-area: "box-one box-two" "box-three box-two";
+`;
+
+export const WelcomeGrid = styled.div`
+  display: grid;
+
+  grid-template-columns: 50vw 50vw;
+  grid-template-rows: 100vh;
+`;
+export const Left = styled.div`
+  grid-column: 1;
+  background: #f2f8f5;
+  z-index: 3;
+  background-image: url("https://images.unsplash.com/photo-1526046881250-dbec3e06414c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  color: #567f5d;
+  padding-top: 40px;
+  padding-left: 40px;
+`;
+export const Right = styled.div`
+  grid-column:2
+  background: blue;
+  z-index:3;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  color:whitesmoke;
+  padding-left:20px;
+`;
 
 export const BoxOne = styled.div`
   grid-area: "box-one";
+
   /* width: 47vw; */
   background-image: url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80");
   background-size: cover;
@@ -27,6 +57,7 @@ export const BoxTwo = styled.div`
   grid-area: "box-two";
   background-image: url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80");
   display: flex;
+  justify-self: start
   background-size: cover;
   justify-content: center;
   align-items: center;
@@ -37,7 +68,7 @@ export const BoxTwo = styled.div`
 `;
 
 export const BoxThree = styled.div`
-  grid-area: "box-two";
+  grid-area: "box-three";
   /* width: 45vw; */
   background-image: url("https://images.unsplash.com/photo-1508239572561-54fae543f43f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1645&q=80");
   display: flex;
@@ -52,8 +83,8 @@ export const BoxThree = styled.div`
 
 export const Button = styled.button`
   border-radius: 10px;
-  background: ${props => (props.primary ? "#009FFD" : "#192aa9")};
-  color: ${props => (props.primary ? "#192aa9" : "#009FFD")};
+  background: ${props => (props.primary ? "papayawhip" : "#192aa9")};
+  color: ${props => (props.primary ? "#192aa9" : "papayawhip")};
   border: 1px solid #192aa9;
   font-size: 15px;
   width: 150px;
@@ -62,13 +93,13 @@ export const Button = styled.button`
   margin-top: 20px;
 `;
 
-export const InputFields = styled.input``;
-
 export const ClickablePTags = styled.p`
   cursor: pointer;
   min-width: 15vw;
   align-self: flex-start;
   padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
   &:hover {
     color: #009ffd;
@@ -80,7 +111,7 @@ export const List = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
-  padding: 30px 30px;
+  padding: 20px 40px;
   position: relative;
   border: 1px solid #b5b5b5;
   background: white;
@@ -96,7 +127,7 @@ export const List = styled.div`
     content: "";
     z-index: -1;
     margin: 0 1px;
-    width: 60%;
+    width: 98%;
     height: 10px;
     position: absolute;
     bottom: -3px;
@@ -146,4 +177,27 @@ export const NavbarItem = styled.img`
   padding-left: 10px;
   padding-right: 10px;
   cursor: pointer;
+`;
+
+export const PLessMargin = styled.p`
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+export const InputField = styled.input`
+  font-size: 1.5rem;
+  width: 70%;
+  color: whitesmoke;
+  background: transparent;
+  border: none;
+  border-bottom: 2px whitesmoke solid;
+  margin-bottom: 2vh;
+
+  &:focus {
+    outline: none;
+    border-bottom: 3px solid whitesmoke;
+    -webkit-box-shadow: 0px 6px 5px -2px rgba(141, 147, 173, 0.75);
+    -moz-box-shadow: 0px 6px 5px -2px rgba(141, 147, 173, 0.75);
+    box-shadow: 0px 6px 5px -2px rgba(141, 147, 173, 0.75);
+  }
 `;

@@ -14,16 +14,19 @@ import {
   ClickablePTags,
   List,
   ListItem,
-  NavbarItem
+  NavbarItem,
+  PLessMargin
 } from "../StandardStyles";
 
 export const MainContent = styled.div`
-  grid-area: "main";
+  grid-area: "BoxTwo";
+  padding-top: 20px;
+  padding-left: 20px;
   width: 50vw;
   min-height: 81vh;
   z-index: 2;
   position: absolute;
-  background: #ffcb77;
+  background: #ead7d1;
   right: 0px;
   top: 10vh;
 `;
@@ -116,7 +119,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
               listItems.map((item, index) => {
                 return (
                   <ListItem key={index}>
-                    <p> {item.amount}</p>
+                    <PLessMargin> {item.amount}</PLessMargin>
                     <ClickablePTags onClick={() => addItemInfo(item)}>
                       {" "}
                       {item.name}
@@ -160,7 +163,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
           {onShoppingList && (
             <ListItem>
               <Button primary onClick={addAll}>
-                bought all items
+                bought all
               </Button>
               <Button onClick={() => dispatch(deleteAllFromShoppingList())}>
                 remove all
@@ -170,7 +173,7 @@ export default function ItemList({ img_url, disp_function, onShoppingList }) {
           {!onShoppingList && (
             <div>
               <Button onClick={() => dispatch(deleteAllFromPantryList())}>
-                remove all from pantry
+                remove all
               </Button>
             </div>
           )}

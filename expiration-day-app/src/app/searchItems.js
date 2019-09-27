@@ -8,15 +8,20 @@ import styled from "styled-components";
 
 const MainContent = styled.div`
   padding-left: 20px;
+  padding-top: 20px;
   grid-area: "main";
   background: lightyellow;
-  width: 100vw;
+  min-height: 81vh;
+  width: 100%;
 `;
 
 const ImgSearch = styled.img`
   object-fit: cover;
 `;
 
+const WrapperClickIcon = styled.div`
+  display: flex;
+`;
 const ClickIcon = styled.img`
   padding-left: 10px;
   padding-right: 10px;
@@ -75,18 +80,20 @@ export default function SearchItems() {
                     alt={item.name}
                   />
                   {item.name}
-                  <ClickIcon
-                    onClick={e => dispatch(addToShoppingList(item.id))}
-                    src="./shopping_card_icon.png"
-                    alt={item.name}
-                  />
-                  <ClickIcon
-                    onClick={e =>
-                      dispatch(addToPantry(item.id, item.expiry_date))
-                    }
-                    src="./home_icon.png"
-                    alt={item.name}
-                  />
+                  <WrapperClickIcon>
+                    <ClickIcon
+                      onClick={e => dispatch(addToShoppingList(item.id))}
+                      src="./shopping_card_icon.png"
+                      alt={item.name}
+                    />
+                    <ClickIcon
+                      onClick={e =>
+                        dispatch(addToPantry(item.id, item.expiry_date))
+                      }
+                      src="./home_icon.png"
+                      alt={item.name}
+                    />
+                  </WrapperClickIcon>
                 </div>
               ))}
           </div>

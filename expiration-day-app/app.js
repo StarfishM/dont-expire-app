@@ -13,7 +13,6 @@ const path = require("path");
 app.use(compression());
 //___________BOILER PLATE FOR REQ.BODY POST REQ NOT TO BE EMPTY____________
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "build")));
 
 const cookieSessionMiddleware = cookieSession({
   maxAge: 1000 * 60 * 60 * 24 * 14,
@@ -33,6 +32,12 @@ app.use(csurf());
 app.use(function(req, res, next) {
   res.cookie("mytoken", req.csrfToken());
   next();
+});
+
+app.get("/logout", (req, res) => {
+  console.log("hit logout route");
+  req.session = null;
+  res.redirect("/welcome");
 });
 
 //////////////////////////////////////
@@ -58,13 +63,10 @@ const requireNoLogin = (req, res, next) => {
     next();
   }
 };
+app.use(express.static(path.join(__dirname, "build")));
 app.get("/welcome", requireNoLogin, (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
-});
-
-app.get("/logout", (req, res) => {
-  req.session = null;
-  res.redirect("/welcome");
+  console.log("#####", __dirname + "/build/index.html");
 });
 
 // serves all routes not specifically listed above this one

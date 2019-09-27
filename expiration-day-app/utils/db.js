@@ -34,7 +34,8 @@ exports.getInitialProductList = () => {
     .query(
       `SELECT id, img_url, name, time_until_expiry
       FROM items
-      LIMIT 3`
+      ORDER BY name
+      LIMIT 16`
     )
     .then(({ rows }) => {
       return rows;

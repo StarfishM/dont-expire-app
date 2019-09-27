@@ -10,24 +10,25 @@ export default function ExpiryList() {
     expiryItems: [],
     show: false
   });
-  const [seen, setSeen] = useState({
-    seen: false
-  });
+  const [seen, setSeen] = useState(false);
+
   const dispatch = useDispatch();
 
   const showAndGetExpiryItems = () => {
     if (showExpiryList.show === false) {
       dispatch(getExpiryItems());
       setShowExpiryList({
-        show: true
+        show: true,
+        seen: false
       });
+      setSeen(true);
     } else if (showExpiryList.show === true) {
       setShowExpiryList({
         show: false
       });
     }
   };
-  const delteItem = id => {
+  const deleteItem = id => {
     dispatch(deleteFromItems(id));
     dispatch(getExpiryItems());
   };
@@ -63,14 +64,14 @@ export default function ExpiryList() {
 
       {showExpiryList.show && (
         <MainContent>
-          <h1>I AM THE EXPIRY LIST</h1>
+          <h1>Should be used up soon</h1>
           {expiryItems &&
             expiryItems.map((item, index) => {
               return (
                 <ListItem key={index}>
                   <p>{item.name}</p>
                   <p>{item.expires_after_date_bought}</p>
-                  <ClickablePTags onClick={() => delteItem(item.id)}>
+                  <ClickablePTags onClick={() => deleteItem(item.id)}>
                     x
                   </ClickablePTags>
                 </ListItem>
@@ -78,7 +79,7 @@ export default function ExpiryList() {
             })}
         </MainContent>
       )}
-      {expiryItems && expiryItems.length > 0 && (
+      {expiryItems && expiryItems.length > 0 && !seen && (
         <Notify> {expiryItems.length}</Notify>
       )}
     </section>

@@ -59,8 +59,9 @@ img {
 
 .dashboard {
   color: papayawhip;
-  z-index: 2;
+  z-index: 1;
   opacity: 1;
+  position: relative;
 }
 
 .transparent-box {
@@ -80,4 +81,31 @@ img {
 
 .search-result {
   margin-bottom: 10px;
+  width: 22%;
+  display: flex;
+  padding-right: 20px;
+  justify-content: space-between;
+}
+
+.search-display-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.highlight > h1 {
+  font-weight: bolder;
+  font-size: 4.5em;
+  font-family: "Codystar", cursive;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  min-height: 50vh;
+}
+
+a {
+  color: whitesmoke;
 }

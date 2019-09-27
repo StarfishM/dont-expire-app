@@ -13,10 +13,10 @@ app.get("/get-expiry-items", (req, res) => {
   let userId = req.session.user.id;
   let first = req.session.user.first;
   let compareValue = calculateCompareValueForDB();
-  console.log("****compare Value", compareValue);
+  // console.log("****compare Value", compareValue);
   getExpiryItems(userId, compareValue)
     .then(data => {
-      console.log(dbInfo("DB RETURN getExpiryItems", data));
+      // console.log(dbInfo("DB RETURN getExpiryItems", data));
       for (let i = 0; i < data.length; i++) {
         data[i].expires_after_date_bought = moment(
           data[i].expires_after_date_bought
@@ -28,7 +28,7 @@ app.get("/get-expiry-items", (req, res) => {
       });
     })
     .catch(error => {
-      console.log("ERROR in GET /get-expiry-items", err(error));
+      // console.log("ERROR in GET /get-expiry-items", err(error));
       res.json({
         success: false
       });
