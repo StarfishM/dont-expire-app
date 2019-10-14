@@ -2,7 +2,7 @@ import React from "react";
 import Register from "./register";
 import Login from "./login";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
-import { WelcomeGrid, Right, Left } from "../StandardStyles";
+import { WelcomeGrid, Left } from "../StandardStyles";
 
 export default function Welcome() {
   return (
@@ -23,9 +23,9 @@ export default function Welcome() {
       </Left>
 
       <BrowserRouter>
-        <Route exact path="/" component={Register} />
+        <Route exact path="/welcome" component={Register} />
         <Route path="/login" component={Login} />
-        <Redirect path="*" to="/" />
+        <Redirect path="*" to="/welcome" />
       </BrowserRouter>
     </WelcomeGrid>
   );
