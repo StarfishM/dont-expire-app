@@ -63,16 +63,11 @@ const requireNoLogin = (req, res, next) => {
     next();
   }
 };
-app.use(express.static(path.join(__dirname, "build")));
 app.get("/welcome", requireNoLogin, (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
   console.log("#####", __dirname + "/build/index.html");
 });
-
-// serves all routes not specifically listed above this one
-// app.get("*", requireLogin, function(req, res) {
-//     res.sendFile(__dirname + "/index.html");
-// });
+app.use(express.static(path.join(__dirname, "build")));
 
 app.get("*", requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, "/build/index.html"));
