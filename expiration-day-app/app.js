@@ -10,6 +10,9 @@ const io = (exports.io = require("socket.io")(server, {
 }));
 const path = require("path");
 
+//___________SERVE STATIC FILES__________________
+// app.use(express.static("./public"));
+
 app.use(compression());
 //___________BOILER PLATE FOR REQ.BODY POST REQ NOT TO BE EMPTY____________
 app.use(express.json());
@@ -63,13 +66,22 @@ const requireNoLogin = (req, res, next) => {
     next();
   }
 };
+
+app.use(function(req, res, next) {
+  console.log("+++++++ req.url", req.url);
+  console.log("####### req.session", req.session);
+  next();
+});
+
 app.get("/welcome", requireNoLogin, (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
   console.log("#####", __dirname + "/build/index.html");
 });
+
 app.use(express.static(path.join(__dirname, "build")));
 
 app.get("*", requireLogin, (req, res) => {
+  console.log("**************running star route");
   res.sendFile(path.join(__dirname, "/build/index.html"));
 });
 
