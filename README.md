@@ -1,8 +1,33 @@
+# ⁉️ About Project
+
+## one week final project @Spiced Academy in 2019
+
+-   Tech stack: Node (Express), Postgres, sockets, React, etc.
+
+## App idea
+
+-   Build an app that allows me to track what's in my pantry & fridge, what I want to shop, and what will soon expire.
+
+### Features
+
+-   Login
+-   Registration
+-   Item-Tinder for quick setup of pantry, fridge, and shopping list
+-   Iteam search
+-   pantry stock + time to expire + item editing (amount, expiration date etc.)
+-   shopping list + item editing (amount, expiration date etc.)
+
+## Build
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm run run`
+
+Runs client & server in development concurrently
 
 ### `npm start`
 
