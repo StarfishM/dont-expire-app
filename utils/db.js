@@ -4,8 +4,8 @@ let db;
 if (process.env.DATABASE_URL) {
   db = spicedPg(process.env.DATABASE_URL);
 } else {
-  const { dbuser, dbpass } = require("../secrets.json");
-  db = spicedPg(`postgres:${dbuser}:${dbpass}@localhost:5432/pastduedate`);
+  // const { dbuser, dbpass } = require("../secrets.json");
+  db = spicedPg(`postgres:postgres:postgres@localhost:5432/expire-app`);
 }
 
 exports.userCreate = function(user) {
