@@ -2,7 +2,7 @@
 
 ## one week final project @Spiced Academy in 2019
 
--   Tech stack: Node (Express), Postgres, sockets, React, etc.
+-   Tech stack: Node (Express), Postgres, sockets, React, Redux, etc.
 
 ## App idea
 
@@ -10,12 +10,13 @@
 
 ### Features
 
--   Login
--   Registration
--   Item-Tinder for quick setup of pantry, fridge, and shopping list
--   Iteam search
--   pantry stock + time to expire + item editing (amount, expiration date etc.)
--   shopping list + item editing (amount, expiration date etc.)
+-   🔏 Login
+-   ✍️ Registration
+-   🔥 Item-Tinder for quick setup of pantry, fridge, and shopping list
+-   🔎 Iteam search
+-   📝 Pantry stock + time to expire + item editing (amount, expiration date etc.)
+-   🛒 Shopping list + item editing (amount, expiration date etc.)
+-   🚨 Notifications about items that are expiring in the next three days
 
 ## Build
 
